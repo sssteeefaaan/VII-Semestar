@@ -1,0 +1,99 @@
+VII Semestar:
+
+	Obavezni Predmeti:
+ 
+		1. Veštačka inteligencija
+			Šifra predmeta: 2OER7O01
+			Predmetni nastavnik: Leonid Stoimenov
+			Snimci:
+				Školska 2021/22:
+					Sve: https://www.youtube.com/watch?v=BfG7eoE6Mww&list=PLWLPHZCdUNsNgASbiFx7g6bg2Sj0gPbSf
+					Predavanja: /
+					Računske vežbe: https://www.youtube.com/watch?v=BfG7eoE6Mww&list=PLWLPHZCdUNsNulbWQdfIwOperY6ra7iu2
+				Školska 2020/21:
+					Predavanja: https://www.youtube.com/watch?v=55moOz1m5t0&list=PLWLPHZCdUNsOD9kmx0tyrYuLRC2ua-cvN
+
+		2. Računarska grafika
+			Šifra predmeta: 2OER7O02
+			Predmetni nastavnik: Aleksandar Dimitrijević, Dejan Rančić
+			Snimci:
+				Školska 2021/22:
+					Sve: https://www.youtube.com/watch?v=ntA1Wga6Xqc&list=PLWLPHZCdUNsPFGSQPiqzAzEuGzDR12XGJ
+					Predavanja: https://www.youtube.com/watch?v=ntA1Wga6Xqc&list=PLWLPHZCdUNsPSfjP04QoIkr74qBY2QhcR
+					Računske vežbe: https://www.youtube.com/watch?v=xGgDt_fS55A&list=PLWLPHZCdUNsOh4telXXzBG_KMSikT_MTm
+				Školska 2020/21:
+					Sve: https://www.youtube.com/watch?v=HukaUrD-I4I&list=PLWLPHZCdUNsNPQtVQrhLhmCXnPSySZOGI
+					Predavanja: https://www.youtube.com/watch?v=HukaUrD-I4I&list=PLWLPHZCdUNsPMOdXOb2jOYud7aZSD3oeG
+					Računske vežbe: https://www.youtube.com/watch?v=BlSjdPOeVNA&list=PLWLPHZCdUNsNesx4ldsmYL-AvikaBsfDk
+
+		3. Programski prevodioci
+			Šifra predmeta: /
+			Predmetni nastavnik: Suzana Stojković
+			Snimci:
+				Sve: https://www.youtube.com/watch?v=_RZfr6RuFio&list=PLWLPHZCdUNsNZvaa59WseffBl8vKweUyO
+				Predavanja: https://www.youtube.com/watch?v=_RZfr6RuFio&list=PLWLPHZCdUNsPVdX83FJmMbf8W1vNcFmPe
+				Računske vežbe: /
+
+	Izborni predmeti:
+
+		1. Projektovanje računarskih mreža
+			Šifra predmeta: 2OER7A01
+			Predmetni nastavnik: Vladimir Ćirić
+			Snimci:
+				Sve: https://www.youtube.com/watch?v=Cs0ffNaj0f4&list=PLWLPHZCdUNsNphgW4zQFO4FOSYGzSk9J4
+				Predavanja: https://www.youtube.com/watch?v=Cs0ffNaj0f4&list=PLWLPHZCdUNsMZY097_6cGaoxp8EK7Ivw7
+				Računske vežbe: https://www.youtube.com/watch?v=2ncAaCBD-gs&list=PLWLPHZCdUNsN_HDyhcLhO9QombAC0FpXp
+
+		2. Projektovanje računarskog hardvera
+			Šifra predmeta: 2OER7A02
+			Predmetni nastavnik: Ivan Milentijević
+			Snimci:
+				Sve: /
+				Predavanja: /
+				Računske vežbe: /
+
+		3. Metodi i sistemi za obradu signala
+			Šifra predmeta: 2OER7A03
+			Predmetni nastavnik: Miloš Radmanović
+			Snimci:
+				Sve: /
+				Predavanja: /
+				Računske vežbe: /
+
+		4. Zaštita informacija
+			Šifra predmeta: 2OER7A04
+			Predmetni nastavnik: /
+			Snimci:
+				Školska 2021/22:
+					Sve: https://www.youtube.com/watch?v=CEHoJUkcb_w&list=PLWLPHZCdUNsMSUS4UhNqrU9ke956R-ee7
+					Predavanja: https://www.youtube.com/watch?v=CEHoJUkcb_w&list=PLWLPHZCdUNsOvcxCqAQkJPYF38P1aIHKd
+					Računske vežbe: https://www.youtube.com/watch?v=F_ihbCgb5i8&list=PLWLPHZCdUNsOUsnwFjV6gg_81IsGXQl12
+				Školska 2020/21:
+					Sve: https://www.youtube.com/watch?v=0VAqQHRkq1E&list=PLWLPHZCdUNsNVTZi8IjiY6xTwVgPdT3p7
+					Predavanja: https://www.youtube.com/watch?v=0VAqQHRkq1E&list=PLWLPHZCdUNsM7OubQukbcXrG1hRQtoXBH
+					Računske vežbe: https://www.youtube.com/watch?v=VArgqLd6QQs&list=PLWLPHZCdUNsOZvg6esDaqKqrBBd4jlrov
+
+		5. Napredne baze podataka
+			Šifra predmeta: 2OER7A05
+			Predmetni nastavnik: Aleksandar Stanimirović
+			Snimci:
+				Školska 2021/22:
+					Sve: https://www.youtube.com/watch?v=1strSWO0q0c&list=PLWLPHZCdUNsP5128JaizB2Gbdb1lEnNpT
+					Predavanja: https://www.youtube.com/watch?v=1strSWO0q0c&list=PLWLPHZCdUNsM6typP_eWIviyyN14BCotR
+					Računske vežbe: /
+
+		6. Arhitektura i projektovanje softvera
+			Šifra predmeta: 2OER7A06
+			Predmetni nastavnik: /
+			Snimci:
+				Sve: /
+				Predavanja: /
+				Računske vežbe: /
+
+		7. Tehnologije za podršku učenju
+			Šifra predmeta: 2OER7A07
+			Predmetni nastavnik: /
+			Snimci:
+				Sve: /
+				Predavanja: /
+				Računske vežbe: /
