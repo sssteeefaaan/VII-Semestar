@@ -8,7 +8,7 @@ VII Semestar:
 			Snimci:
 				Školska 2021/22:
 					Sve: https://www.youtube.com/watch?v=BfG7eoE6Mww&list=PLWLPHZCdUNsNgASbiFx7g6bg2Sj0gPbSf
-					Predavanja: /
+					Predavanja: https://www.youtube.com/watch?v=cGpvw7A8k5Y&list=PLWLPHZCdUNsP_TXcHLrgd0jiaeW090tAk
 					Računske vežbe: https://www.youtube.com/watch?v=BfG7eoE6Mww&list=PLWLPHZCdUNsNulbWQdfIwOperY6ra7iu2
 				Školska 2020/21:
 					Predavanja: https://www.youtube.com/watch?v=55moOz1m5t0&list=PLWLPHZCdUNsOD9kmx0tyrYuLRC2ua-cvN
@@ -32,7 +32,7 @@ VII Semestar:
 			Snimci:
 				Sve: https://www.youtube.com/watch?v=_RZfr6RuFio&list=PLWLPHZCdUNsNZvaa59WseffBl8vKweUyO
 				Predavanja: https://www.youtube.com/watch?v=_RZfr6RuFio&list=PLWLPHZCdUNsPVdX83FJmMbf8W1vNcFmPe
-				Računske vežbe: /
+				Računske vežbe: https://www.youtube.com/watch?v=HmW5lCkzY6Y&list=PLWLPHZCdUNsM8Gn2KUOtZV61mQSsNSTML
 
 	Izborni predmeti:
 

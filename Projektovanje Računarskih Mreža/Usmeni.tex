@@ -1,0 +1,35 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{amsmath}
+\usepackage[makeroom]{cancel}
+
+\author{Stefan Aleksić}
+\title{Usmeni deo ispita iz predmeta Projektovanje Računarskih Mreža}
+\begin{document}
+	\begin{titlepage}
+		\maketitle
+	\end{titlepage}
+	\begin{enumerate}
+			\item {Pravilo 5--4--3--2--1 i određivanje minimalne dužine Ethernet frame-a za 100BaseT standard.}
+			\\
+			Pravilo 5--4--3--2--1 nam govori da je za jedan kolizioni domen maksimalan (po preporuci) dozvoljeno imati 5 mreža, koje su povezane sa 4 veze (hub/repeater), na 3/5 mreže se nalaze računari, 2 mreže su bez računara i to predstavlja 1 kolizioni domen.
+			\\
+			Za 100BaseT dužina jednog segmenta je maksimalno 100m, pa za 5 segmenta imamo ukupno 500m.
+			\\
+			Maksimalnu dužinu Ethernet frame-a određujemo baš na osnovu ovog pravila, odnosno poznavanja da je max rastojanje između dva računara u mreži 500m za 100BaseT.
+			Kako bi računar koji šalje podatke CSMA/CD algoritmom, preko ovog medijuma imao uvid u to da li su svi podaci primljeni bez interferencije (grešaka) ili se ipak desio jam u nekom trenutku, Ethernet frame mora biti ograničen sa minimalnim brojem bajtova.
+			\\
+			x - broj bajtova koji se pošalje,
+			v - brzina slanja podataka (za 100BaseT to je 100Mb/s),
+			D - dijametar kolizionog domena (5 * 100m),
+			c - brzina svetlosti (3 * 108 m/s)
+			
+			${x / v = 2 \cdot D / c => \frac{x}{100 \cdot{10^6 b/s}} = 2 \cdot{\frac{500 m}{3 \cdot{10^8 m/s}}}}$
+			\\
+			${x = \frac{10^\cancel{3} \cancel{m}}{3 \cdot {10^{\cancel{8}}} \cancel{m}/\cancel{s}} \cdot {100 \cdot {10^6b/\cancel{s}}}}$
+			
+	\end{enumerate}
+\end{document}
