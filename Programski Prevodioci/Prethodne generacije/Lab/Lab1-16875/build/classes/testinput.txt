@@ -1,0 +1,8 @@
+main()
+{
+ %ovo je komentar%
+ a:integer b:char;
+ a:=356;
+ loop(1)
+ b:='c'
+}

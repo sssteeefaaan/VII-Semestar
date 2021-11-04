@@ -1,0 +1,26 @@
+1. RedoLoop → loop ( Expression ) { Statement redo ( Expression ) ; Statement }
+2. Expression → AndExpression Expression'
+3. Expression' → || AndExpression Expression'
+4. Expression' → ε                                      
+5. AndExpression → Term AndExpression'
+6. AndExpression' → && Term AndExpression'
+7. AndExpression' → ε                                   
+8. Term → ID
+9. Term → CONST
+10. Statement →RedoLoop
+11. Statement → ID := Expression ;
+
+---------------------------------------------------
+
+1.FIRST( loop (Expression) {Statement redo (Expression), Statement}={loop }         
+3.FIRST(|| AndExpression Expression')={||}                          
+6.FIRST( && Term AndExpression')={ &&}                              
+8.FIRST(ID)={ID}                                                     
+9.FIRST(CONST)={CONST}                                               
+11.FIRST( ID := Expression ;)={ID}                                    
+Zatim sve sa neterminalnim:                                            
+                                                                        
+10.FIRST(RedoLoop )={loop }  
+2. FIRST(Term AndExpression' Expression)= {ID, CONST}                                           
+5. FIRST(AndExpression)=  {ID, CONST}                                        
+7. FIRST(ε)={ε} => Follow(AndExpression')={II,)}

@@ -1,0 +1,7 @@
+program
+begin
+ (*ovo je komentar*)
+ var a:integer b:char;
+ a:=356;
+ b:='c'
+end

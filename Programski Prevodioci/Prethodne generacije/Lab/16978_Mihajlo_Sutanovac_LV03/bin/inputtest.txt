@@ -1,0 +1,5 @@
+select begin 
+case a => a:=500; 
+case a => a:=b; 
+case a => select begin case b => b:= a; end
+end

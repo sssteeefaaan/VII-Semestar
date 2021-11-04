@@ -1,0 +1,61 @@
+SelectStatement' -> SelectStatement
+SelectStatement → select begin CaseList end
+CaseList → CaseList Case 
+CaseList -> Case
+Case → case ID => Statement
+Statement → SelectStatement 
+Statement -> ID := ID ; 
+Statement -> ID := CONST ;
+---------------------------------------------------------
+SelectStatement' -> SelectStatement
+l0: 	SelectStatement' -> . SelectStatement                    
+    	SelectStatement -> . select begin CaseList end           
+l1: goto(l0, SelectStatement)
+	SelectStatement' -> SelectStatement . &&                 
+l2: goto(l0, select) 
+	SelectStatement -> select . begin CaseList end           
+l3: goto(l2, begin)
+	SelectStatement -> select begin . CaseList end           
+	CaseList → . CaseList Case                               
+	CaseList -> . Case                                       
+	Case → . case ID => Statement                            
+l4: goto(l3, CaseList)
+	SelectStatement -> select begin CaseList . end           
+	CaseList → CaseList . Case                               
+	Case → . case ID => Statement                            
+l5: goto(l4, end)
+	SelectStatement -> select begin CaseList end . smena 1   
+l6: goto(l4, Case)
+	CaseList → CaseList Case . smena 2                       
+l7: goto(l3, Case)
+	 CaseList -> Case . smena 3                              
+l8: goto(l3, case)
+	Case → case . ID => Statement                            
+l9: goto(l8, ID) 
+	Case → case ID . => Statement                            
+l10: goto(l9, =>)
+	Case → case ID => . Statement  
+	Statement → . SelectStatement
+	Statement -> . ID := ID ;                     
+	Statement -> . ID := CONST ;
+	SelectStatement → . select begin CaseList end
+l11: goto(l10, Statement)
+	Case → case ID => Statement . smena 4
+l12: goto(l10, SelectStatement)
+	Statement → SelectStatement . smena 5 
+l13: goto(l10, ID)
+	Statement -> ID . := ID ; 
+	Statement -> ID . := CONST ;
+l14: goto(l13, :=)
+	Statement -> ID := . ID ; 
+	Statement -> ID := . CONST ;
+l15: goto(l14, ID)
+	Statement -> ID := ID . ; 
+l16: goto(l15, ;)
+	Statement -> ID := ID ; . smena 6 
+l17: goto(l14, CONST)
+	Statement -> ID := CONST . ;
+l18: goto(l17, ;)
+	Statement -> ID := CONST ; . smena 7
+goto(l4, case) = l8
+goto(l10, select) = l2
