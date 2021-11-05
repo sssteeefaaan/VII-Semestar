@@ -13,14 +13,17 @@ class Graph:
     def visualize(self):
         G = nx.Graph()
         G.add_edges_from(self.edges)
-        nx.draw_networkx(G)
-        plt.show()
+        #nx.draw_networkx(G)
+        nx.draw_networkx(G, pos=None, arrows=True)
+        plt.pause(60)
 
 G = Graph()
-G.addEdge('a', 'b')
-G.addEdge('a', 'c')
-G.addEdge('b', 'd')
-G.addEdge('c', 'd')
-G.addEdge('b', 'e')
-G.addEdge('e', 'f')
-G.visualize()
+nodes = []
+for s in "abcdefghijkl":
+    nodes.append(s)
+    
+rand = random()
+
+while True:
+    G.addEdge(nodes[])
+    G.visualize()

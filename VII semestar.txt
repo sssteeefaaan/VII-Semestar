@@ -80,7 +80,7 @@ VII Semestar:
 				Školska 2021/22:
 					Sve: https://www.youtube.com/watch?v=1strSWO0q0c&list=PLWLPHZCdUNsP5128JaizB2Gbdb1lEnNpT
 					Predavanja: https://www.youtube.com/watch?v=1strSWO0q0c&list=PLWLPHZCdUNsM6typP_eWIviyyN14BCotR
-					Računske vežbe: /
+					Računske vežbe: https://www.youtube.com/watch?v=kVAKmipsoBg&list=PLWLPHZCdUNsNQF9Huvl6DoRfR1px9svXr
 
 		6. Arhitektura i projektovanje softvera
 			Šifra predmeta: 2OER7A06
