@@ -1,0 +1,49 @@
+-Objasniti sta je graficki API. Koje grupe fja svaki API treba da ima? Koja grupa fja ima kljucnu ulogu kod implementacije "device independent" grafickih aplikacija?
+-Definisati graficki API. Nabrojati i objasniti osnovne grupe funkcija koje bi svaki dobar graficki API trebalo da ima. x2
+
+-Windows GDI - opis i princip rada. Objasniti kontekst grafickog uredjaja (device contex). x5
+
+-Objasniti razliku izmedju rasterskih i vektorskih podataka. Opisati nacine rada rasterskih i vektorskih uredjaja. Koji bi od pomenuta dva tipa podataka izabrali za realizaciju prikaza fotografija na racunaru? x4
+
+-Navesti sve logicke tipove ulaznih uredjaja i sve tipove izlaznih uredjaja. Objasniti namenu svakog tipa uredjaja. x2
+________________________________________________________________________
+-Izvesti i dati realizaciju u C-u Bresenham-ovog algoritma za crtanje linije(kruznice). x10
+... i generisati proceduru na C/C++. Naci piksele koji ce biti selektovani prilikom crtanja linije (4,4), (8,16). x3
+
+-Izvesti i dati realizaciju u C-u diferencijalnog algoritma II (I) reda za skaniranje elipse. x7
+
+-Napisati algoritam za popunu poligona zadatog listom temena.
+
+-Objasniti Cohen-Sutherland-ov algoritam za odsecanje linija i dati realizaciju u C/C++-u. (u kanonickom volumenu za paral. i perspektivnu projekciju) x3
+
+-Objasniti Weiler-Atherton-ov algoritam za odsecanje poligona. Ilustrovati algoritam na primeru dva proizvoljna poligona. x2
+_________________________________________________________________________
+-Obj. pojam Aspekta slike u RG. Izvesti transformacionu matricu za transf. Prozora u Zaslon (Window-to-Viewport transf.). Kako se ista stvar radi u OpenGL-u? x2
+-Dati definiciju geometrijskih projekcija. Koji su osnovni parametri projekcije? Koja vrsta projekcije se najcesce koristi u racunarskoj grafici?
+
+-Izvesti matricu za perspektivnu projekciju ukoliko se centar projekcije nalazi u koordinatnom pocetku a projekciona ravan je ravan z=2.
+
+-Izracunati matricu za 2D refleksiju u odnosu na pravu (2*y-2*x=0) (y-x=0) (y=-x) (x-y=0) (x+y=0) / ((rotaciju) za ugao 130(45) stepeni oko tacke P(3,8)) (x=y) (x=-y). x13
+
+-Izvesti transformacionu matricu za rotaciju oko tacke (Dx, Dy) za ugao od -90 stepeni.
+_________________________________________________________________________
+-Navesti algoritme za uklanjanje sakrivenih ivica i povrsi. Objasniti Warnock-ov i Watkinson-ov algoritam. (Slikarev) x3
+-Koje grupe algoritama za uklanjanje sakrivenih ivica i povrsi postoje? Koji algoritmi pripadaju kojoj grupi? Objasniti algoritam koji koristi Z buffer (BSP stabla). x5
+
+-BSP stablo, slika.
+
+-Objasniti iscrtavanje ekrana sa preplitanjem i bez preplitanja. x4
+
+-Navesti modele boja koji se koriste u racunarskoj grafici. Koje vrednosti po komponentama ima boja u CMY modelu, ukoliko u RGB modelu ima vrednosti(230,145,248)? Vrednosti po komponentama su iz opsega 0..255. x6
+Objasniti CIE, CMY i CMYK modele boja.
+
+-Navesti modele osvetljenja koji se koriste u RG i obj svaki od njih.
+
+-Navesti modele sencenja koji se koristi u racunarskoj grafici. Detaljno objasniti Phong(Gouraud)(Flat) model. Sta su dobre a sta lose strane ovog modela? x10
+-Navesti modele senki...(mapa senki)(projektovane senke)(lazne senke)
+-Koje grupe algoritama za sencenje postoje? Koji algoritmi pripadaju kojoj grupi? Objasniti Flat algoritam.
+
+-Pravu koja je odredjena tackama A(4,4) i B(10,16) predstaviti u:((2,2)(5,8)) x4
+ a. eksplicitnom,
+ b. implicitnom i
+ c. parametarskom obliku.

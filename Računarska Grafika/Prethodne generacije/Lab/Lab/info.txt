@@ -1,0 +1,2 @@
+- nedelju dana za projekat, poeni na testu, ne računaju se poeni bez projekta
+- Invalidate() poruka da treba da se izvrši OnDraw
