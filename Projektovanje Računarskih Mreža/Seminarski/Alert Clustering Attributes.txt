@@ -1,0 +1,32 @@
+Alert attributes:
+	* Bitniji:
+		/ 			alertid			/
+		+ 			date 			+
+		+ 			time 			+
+		? 		sessionduration 	?
+		? 	source address category ?
+		+ 		source address 		+
+		+ 		source port 		+
+		? 		source spoofed 		?
+		? 	target address category ?
+		+ 		target address 		+
+		+ 		destination port 	+
+		+ 		service name 		+
+		? 			impact			?
+
+	* Manje bitni:
+		/ 	message version	/
+		/ 	alert version	/
+		/ 	analyzer ident 	/
+		/ 	analyzer name 	/
+		
+	* Legenda:
+		+ dosta bitan
+		? nisam siguran koliko treba da bude bitan
+		- ne toliko bitan
+		/ smatram nebitnim za računanje
+		
+vector c = [1/13] * 13
+Nakon rasporedele
+1/13 = 0.0769
+c = [0, 0.09, 0.09, 0.05, 0.05, 0.15, 0.09, 0.05, 0.05, 0.15, 0.09, 0.1, 0.04]

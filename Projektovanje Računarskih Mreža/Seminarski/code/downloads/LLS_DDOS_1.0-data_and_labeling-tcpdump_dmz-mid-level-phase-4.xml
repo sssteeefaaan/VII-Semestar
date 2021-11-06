@@ -1,0 +1,629 @@
+<xml>
+
+<IDMEF-Message version="0.1">
+<Alert alertid="1" impact="unknown" version="1">
+<Time>
+	<date>03/07/2000</date>
+	<time>10:50:01</time>
+	<sessionduration>00:00:05</sessionduration>
+</Time>
+<Analyzer ident="tcpdump_dmz">
+	<name>tcpdump_dmz</name>
+</Analyzer>
+<Source spoofed="unknown">
+	<Node>
+		<Address category="ipv4-addr">
+			<address>202.77.162.213</address>
+		</Address>
+	</Node>
+</Source>
+<Target>
+	<Node>
+		<Address category="ipv4-addr">
+			<address>172.16.115.20</address>
+		</Address>
+	</Node>
+	<Service>
+		<name>tcp</name>
+		<sport>1536</sport>
+		<dport>23</dport>
+	</Service>
+</Target>
+</Alert>
+</IDMEF-Message>
+
+
+<IDMEF-Message version="0.1">
+<Alert alertid="2" impact="unknown" version="1">
+<Time>
+	<date>03/07/2000</date>
+	<time>10:50:02</time>
+	<sessionduration>00:00:00</sessionduration>
+</Time>
+<Analyzer ident="tcpdump_dmz">
+	<name>tcpdump_dmz</name>
+</Analyzer>
+<Source spoofed="unknown">
+	<Node>
+		<Address category="ipv4-addr">
+			<address>172.16.115.20</address>
+		</Address>
+	</Node>
+</Source>
+<Target>
+	<Node>
+		<Address category="ipv4-addr">
+			<address>202.77.162.213</address>
+		</Address>
+	</Node>
+	<Service>
+		<name>tcp</name>
+		<sport>1023</sport>
+		<dport>514</dport>
+	</Service>
+</Target>
+</Alert>
+</IDMEF-Message>
+
+
+<IDMEF-Message version="0.1">
+<Alert alertid="3" impact="unknown" version="1">
+<Time>
+	<date>03/07/2000</date>
+	<time>10:50:02</time>
+	<sessionduration>00:00:01</sessionduration>
+</Time>
+<Analyzer ident="tcpdump_dmz">
+	<name>tcpdump_dmz</name>
+</Analyzer>
+<Source spoofed="unknown">
+	<Node>
+		<Address category="ipv4-addr">
+			<address>172.16.115.20</address>
+		</Address>
+	</Node>
+</Source>
+<Target>
+	<Node>
+		<Address category="ipv4-addr">
+			<address>202.77.162.213</address>
+		</Address>
+	</Node>
+	<Service>
+		<name>tcp</name>
+		<sport>1023</sport>
+		<dport>514</dport>
+	</Service>
+</Target>
+</Alert>
+</IDMEF-Message>
+
+
+<IDMEF-Message version="0.1">
+<Alert alertid="4" impact="unknown" version="1">
+<Time>
+	<date>03/07/2000</date>
+	<time>10:50:03</time>
+	<sessionduration>00:00:01</sessionduration>
+</Time>
+<Analyzer ident="tcpdump_dmz">
+	<name>tcpdump_dmz</name>
+</Analyzer>
+<Source spoofed="unknown">
+	<Node>
+		<Address category="ipv4-addr">
+			<address>172.16.115.20</address>
+		</Address>
+	</Node>
+</Source>
+<Target>
+	<Node>
+		<Address category="ipv4-addr">
+			<address>202.77.162.213</address>
+		</Address>
+	</Node>
+	<Service>
+		<name>tcp</name>
+		<sport>1023</sport>
+		<dport>514</dport>
+	</Service>
+</Target>
+</Alert>
+</IDMEF-Message>
+
+
+<IDMEF-Message version="0.1">
+<Alert alertid="5" impact="unknown" version="1">
+<Time>
+	<date>03/07/2000</date>
+	<time>10:50:04</time>
+	<sessionduration>00:00:01</sessionduration>
+</Time>
+<Analyzer ident="tcpdump_dmz">
+	<name>tcpdump_dmz</name>
+</Analyzer>
+<Source spoofed="unknown">
+	<Node>
+		<Address category="ipv4-addr">
+			<address>172.16.115.20</address>
+		</Address>
+	</Node>
+</Source>
+<Target>
+	<Node>
+		<Address category="ipv4-addr">
+			<address>202.77.162.213</address>
+		</Address>
+	</Node>
+	<Service>
+		<name>tcp</name>
+		<sport>1023</sport>
+		<dport>514</dport>
+	</Service>
+</Target>
+</Alert>
+</IDMEF-Message>
+
+
+<IDMEF-Message version="0.1">
+<Alert alertid="6" impact="unknown" version="1">
+<Time>
+	<date>03/07/2000</date>
+	<time>10:50:05</time>
+	<sessionduration>00:00:02</sessionduration>
+</Time>
+<Analyzer ident="tcpdump_dmz">
+	<name>tcpdump_dmz</name>
+</Analyzer>
+<Source spoofed="unknown">
+	<Node>
+		<Address category="ipv4-addr">
+			<address>202.77.162.213</address>
+		</Address>
+	</Node>
+</Source>
+<Target>
+	<Node>
+		<Address category="ipv4-addr">
+			<address>172.16.115.20</address>
+		</Address>
+	</Node>
+	<Service>
+		<name>tcp</name>
+		<sport>1023</sport>
+		<dport>514</dport>
+	</Service>
+</Target>
+</Alert>
+</IDMEF-Message>
+
+
+<IDMEF-Message version="0.1">
+<Alert alertid="7" impact="unknown" version="1">
+<Time>
+	<date>03/07/2000</date>
+	<time>10:50:07</time>
+	<sessionduration>00:00:00</sessionduration>
+</Time>
+<Analyzer ident="tcpdump_dmz">
+	<name>tcpdump_dmz</name>
+</Analyzer>
+<Source spoofed="unknown">
+	<Node>
+		<Address category="ipv4-addr">
+			<address>172.16.115.20</address>
+		</Address>
+	</Node>
+</Source>
+<Target>
+	<Node>
+		<Address category="ipv4-addr">
+			<address>202.77.162.213</address>
+		</Address>
+	</Node>
+	<Service>
+		<name>tcp</name>
+		<sport>1023</sport>
+		<dport>1022</dport>
+	</Service>
+</Target>
+</Alert>
+</IDMEF-Message>
+
+
+<IDMEF-Message version="0.1">
+<Alert alertid="8" impact="unknown" version="1">
+<Time>
+	<date>03/07/2000</date>
+	<time>10:50:21</time>
+	<sessionduration>00:00:01</sessionduration>
+</Time>
+<Analyzer ident="tcpdump_dmz">
+	<name>tcpdump_dmz</name>
+</Analyzer>
+<Source spoofed="unknown">
+	<Node>
+		<Address category="ipv4-addr">
+			<address>202.77.162.213</address>
+		</Address>
+	</Node>
+</Source>
+<Target>
+	<Node>
+		<Address category="ipv4-addr">
+			<address>172.16.112.10</address>
+		</Address>
+	</Node>
+	<Service>
+		<name>tcp</name>
+		<sport>1537</sport>
+		<dport>23</dport>
+	</Service>
+</Target>
+</Alert>
+</IDMEF-Message>
+
+
+<IDMEF-Message version="0.1">
+<Alert alertid="9" impact="unknown" version="1">
+<Time>
+	<date>03/07/2000</date>
+	<time>10:50:21</time>
+	<sessionduration>00:00:00</sessionduration>
+</Time>
+<Analyzer ident="tcpdump_dmz">
+	<name>tcpdump_dmz</name>
+</Analyzer>
+<Source spoofed="unknown">
+	<Node>
+		<Address category="ipv4-addr">
+			<address>202.77.162.213</address>
+		</Address>
+	</Node>
+</Source>
+<Target>
+	<Node>
+		<Address category="ipv4-addr">
+			<address>172.16.115.20</address>
+		</Address>
+	</Node>
+	<Service>
+		<name>tcp</name>
+		<sport>1021</sport>
+		<dport>514</dport>
+	</Service>
+</Target>
+</Alert>
+</IDMEF-Message>
+
+
+<IDMEF-Message version="0.1">
+<Alert alertid="10" impact="unknown" version="1">
+<Time>
+	<date>03/07/2000</date>
+	<time>10:50:21</time>
+	<sessionduration>00:00:00</sessionduration>
+</Time>
+<Analyzer ident="tcpdump_dmz">
+	<name>tcpdump_dmz</name>
+</Analyzer>
+<Source spoofed="unknown">
+	<Node>
+		<Address category="ipv4-addr">
+			<address>172.16.115.20</address>
+		</Address>
+	</Node>
+</Source>
+<Target>
+	<Node>
+		<Address category="ipv4-addr">
+			<address>202.77.162.213</address>
+		</Address>
+	</Node>
+	<Service>
+		<name>tcp</name>
+		<sport>1022</sport>
+		<dport>1020</dport>
+	</Service>
+</Target>
+</Alert>
+</IDMEF-Message>
+
+
+<IDMEF-Message version="0.1">
+<Alert alertid="11" impact="unknown" version="1">
+<Time>
+	<date>03/07/2000</date>
+	<time>10:50:21</time>
+	<sessionduration>00:00:00</sessionduration>
+</Time>
+<Analyzer ident="tcpdump_dmz">
+	<name>tcpdump_dmz</name>
+</Analyzer>
+<Source spoofed="unknown">
+	<Node>
+		<Address category="ipv4-addr">
+			<address>172.16.112.10</address>
+		</Address>
+	</Node>
+</Source>
+<Target>
+	<Node>
+		<Address category="ipv4-addr">
+			<address>202.77.162.213</address>
+		</Address>
+	</Node>
+	<Service>
+		<name>tcp</name>
+		<sport>1023</sport>
+		<dport>514</dport>
+	</Service>
+</Target>
+</Alert>
+</IDMEF-Message>
+
+
+<IDMEF-Message version="0.1">
+<Alert alertid="12" impact="unknown" version="1">
+<Time>
+	<date>03/07/2000</date>
+	<time>10:50:21</time>
+	<sessionduration>00:00:01</sessionduration>
+</Time>
+<Analyzer ident="tcpdump_dmz">
+	<name>tcpdump_dmz</name>
+</Analyzer>
+<Source spoofed="unknown">
+	<Node>
+		<Address category="ipv4-addr">
+			<address>172.16.112.10</address>
+		</Address>
+	</Node>
+</Source>
+<Target>
+	<Node>
+		<Address category="ipv4-addr">
+			<address>202.77.162.213</address>
+		</Address>
+	</Node>
+	<Service>
+		<name>tcp</name>
+		<sport>1023</sport>
+		<dport>514</dport>
+	</Service>
+</Target>
+</Alert>
+</IDMEF-Message>
+
+
+<IDMEF-Message version="0.1">
+<Alert alertid="13" impact="unknown" version="1">
+<Time>
+	<date>03/07/2000</date>
+	<time>10:50:37</time>
+	<sessionduration>00:00:01</sessionduration>
+</Time>
+<Analyzer ident="tcpdump_dmz">
+	<name>tcpdump_dmz</name>
+</Analyzer>
+<Source spoofed="unknown">
+	<Node>
+		<Address category="ipv4-addr">
+			<address>202.77.162.213</address>
+		</Address>
+	</Node>
+</Source>
+<Target>
+	<Node>
+		<Address category="ipv4-addr">
+			<address>172.16.112.50</address>
+		</Address>
+	</Node>
+	<Service>
+		<name>tcp</name>
+		<sport>1565</sport>
+		<dport>23</dport>
+	</Service>
+</Target>
+</Alert>
+</IDMEF-Message>
+
+
+<IDMEF-Message version="0.1">
+<Alert alertid="14" impact="unknown" version="1">
+<Time>
+	<date>03/07/2000</date>
+	<time>10:50:37</time>
+	<sessionduration>00:00:00</sessionduration>
+</Time>
+<Analyzer ident="tcpdump_dmz">
+	<name>tcpdump_dmz</name>
+</Analyzer>
+<Source spoofed="unknown">
+	<Node>
+		<Address category="ipv4-addr">
+			<address>202.77.162.213</address>
+		</Address>
+	</Node>
+</Source>
+<Target>
+	<Node>
+		<Address category="ipv4-addr">
+			<address>172.16.112.10</address>
+		</Address>
+	</Node>
+	<Service>
+		<name>tcp</name>
+		<sport>1019</sport>
+		<dport>514</dport>
+	</Service>
+</Target>
+</Alert>
+</IDMEF-Message>
+
+
+<IDMEF-Message version="0.1">
+<Alert alertid="15" impact="unknown" version="1">
+<Time>
+	<date>03/07/2000</date>
+	<time>10:50:37</time>
+	<sessionduration>00:00:00</sessionduration>
+</Time>
+<Analyzer ident="tcpdump_dmz">
+	<name>tcpdump_dmz</name>
+</Analyzer>
+<Source spoofed="unknown">
+	<Node>
+		<Address category="ipv4-addr">
+			<address>172.16.112.10</address>
+		</Address>
+	</Node>
+</Source>
+<Target>
+	<Node>
+		<Address category="ipv4-addr">
+			<address>202.77.162.213</address>
+		</Address>
+	</Node>
+	<Service>
+		<name>tcp</name>
+		<sport>1023</sport>
+		<dport>1018</dport>
+	</Service>
+</Target>
+</Alert>
+</IDMEF-Message>
+
+
+<IDMEF-Message version="0.1">
+<Alert alertid="16" impact="unknown" version="1">
+<Time>
+	<date>03/07/2000</date>
+	<time>10:50:38</time>
+	<sessionduration>00:00:00</sessionduration>
+</Time>
+<Analyzer ident="tcpdump_dmz">
+	<name>tcpdump_dmz</name>
+</Analyzer>
+<Source spoofed="unknown">
+	<Node>
+		<Address category="ipv4-addr">
+			<address>172.16.112.50</address>
+		</Address>
+	</Node>
+</Source>
+<Target>
+	<Node>
+		<Address category="ipv4-addr">
+			<address>202.77.162.213</address>
+		</Address>
+	</Node>
+	<Service>
+		<name>tcp</name>
+		<sport>1023</sport>
+		<dport>514</dport>
+	</Service>
+</Target>
+</Alert>
+</IDMEF-Message>
+
+
+<IDMEF-Message version="0.1">
+<Alert alertid="17" impact="unknown" version="1">
+<Time>
+	<date>03/07/2000</date>
+	<time>10:50:38</time>
+	<sessionduration>00:00:00</sessionduration>
+</Time>
+<Analyzer ident="tcpdump_dmz">
+	<name>tcpdump_dmz</name>
+</Analyzer>
+<Source spoofed="unknown">
+	<Node>
+		<Address category="ipv4-addr">
+			<address>172.16.112.50</address>
+		</Address>
+	</Node>
+</Source>
+<Target>
+	<Node>
+		<Address category="ipv4-addr">
+			<address>202.77.162.213</address>
+		</Address>
+	</Node>
+	<Service>
+		<name>tcp</name>
+		<sport>1023</sport>
+		<dport>514</dport>
+	</Service>
+</Target>
+</Alert>
+</IDMEF-Message>
+
+
+<IDMEF-Message version="0.1">
+<Alert alertid="18" impact="unknown" version="1">
+<Time>
+	<date>03/07/2000</date>
+	<time>10:50:53</time>
+	<sessionduration>00:00:00</sessionduration>
+</Time>
+<Analyzer ident="tcpdump_dmz">
+	<name>tcpdump_dmz</name>
+</Analyzer>
+<Source spoofed="unknown">
+	<Node>
+		<Address category="ipv4-addr">
+			<address>202.77.162.213</address>
+		</Address>
+	</Node>
+</Source>
+<Target>
+	<Node>
+		<Address category="ipv4-addr">
+			<address>172.16.112.50</address>
+		</Address>
+	</Node>
+	<Service>
+		<name>tcp</name>
+		<sport>1017</sport>
+		<dport>514</dport>
+	</Service>
+</Target>
+</Alert>
+</IDMEF-Message>
+
+
+<IDMEF-Message version="0.1">
+<Alert alertid="19" impact="unknown" version="1">
+<Time>
+	<date>03/07/2000</date>
+	<time>10:50:53</time>
+	<sessionduration>00:00:00</sessionduration>
+</Time>
+<Analyzer ident="tcpdump_dmz">
+	<name>tcpdump_dmz</name>
+</Analyzer>
+<Source spoofed="unknown">
+	<Node>
+		<Address category="ipv4-addr">
+			<address>172.16.112.50</address>
+		</Address>
+	</Node>
+</Source>
+<Target>
+	<Node>
+		<Address category="ipv4-addr">
+			<address>202.77.162.213</address>
+		</Address>
+	</Node>
+	<Service>
+		<name>tcp</name>
+		<sport>1023</sport>
+		<dport>1016</dport>
+	</Service>
+</Target>
+</Alert>
+</IDMEF-Message>
+
+</xml>
