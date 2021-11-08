@@ -1,0 +1,62 @@
+CREATE TABLE "Guest" (
+    phone text,
+    email text,
+    fname text,
+    lname text,
+    PRIMARY KEY (phone)
+)
+WITH
+  bloom_filter_fp_chance=0.01
+  AND compaction={ 'class' : 'org.apache.cassandra.db.compaction.SizeTieredCompactionStrategy' }
+  AND compression={ 'sstable_compression' : 'org.apache.cassandra.io.compress.LZ4Compressor' }
+  AND caching='{"keys":"ALL", "rows_per_partition":"NONE"}';
+
+CREATE TABLE "Hotel" (
+    "hotelID" text,
+    address text,
+    city text,
+    name text,
+    phone text,
+    state text,
+    zip text,
+    PRIMARY KEY ("hotelID")
+)
+WITH
+  bloom_filter_fp_chance=0.01
+  AND compaction={ 'class' : 'org.apache.cassandra.db.compaction.SizeTieredCompactionStrategy' }
+  AND compression={ 'sstable_compression' : 'org.apache.cassandra.io.compress.LZ4Compressor' }
+  AND caching='{"keys":"ALL", "rows_per_partition":"NONE"}';
+
+
+CREATE TABLE "Reservation" (
+    "resID" text,
+    arrive text,
+    depart text,
+    "hotelID" text,
+    name text,
+    phone text,
+    rate text,
+    "roomID" text,
+    PRIMARY KEY ("resID")
+)
+WITH
+  bloom_filter_fp_chance=0.01
+  AND compaction={ 'class' : 'org.apache.cassandra.db.compaction.SizeTieredCompactionStrategy' }
+  AND compression={ 'sstable_compression' : 'org.apache.cassandra.io.compress.LZ4Compressor' }
+  AND caching='{"keys":"ALL", "rows_per_partition":"NONE"}';
+
+CREATE TABLE "Room" (
+    "hotelID" text,
+    "roomID" text,
+    hottub text,
+    num text,
+    rate text,
+    tv text,
+    "type" text,
+    PRIMARY KEY ("hotelID", "roomID")
+)
+WITH
+  bloom_filter_fp_chance=0.01
+  AND compaction={ 'class' : 'org.apache.cassandra.db.compaction.SizeTieredCompactionStrategy' }
+  AND compression={ 'sstable_compression' : 'org.apache.cassandra.io.compress.LZ4Compressor' }
+  AND caching='{"keys":"ALL", "rows_per_partition":"NONE"}';
