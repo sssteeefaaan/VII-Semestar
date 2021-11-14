@@ -1,0 +1,123 @@
+Prevođenje - pretakanje teksta pisanog jednim jezikom u tekst pisan drugim jezikom
+Programski prevodilac
+ *Softver koji prevodi programe pisane jednim programskim jezikom u programe pisane drugim programskim jezikom.
+ *Generalno ne mora da bude iz viših u niže programske jezike
+ 
+Klasifikacija programskih jezika:
+	- Mašinski zavisni:
+		- Mašinski kod
+		- Mašinski orijentisani jezici:
+			- Simbolički asemblerski					\ jezici niskog
+			- Makro asemblerski							/    nivoa
+	- Mašinski nezavisni:
+		- Proceduri orijentisani						- jezici visokog nivoa
+		- Problemu orijentisani aplikativni jezici 		- jezici veoma visokog nivoa
+
+Prevodioci:
+	* Asembleri (simboličke oznake preslikavaju u binarno kodirane reči koje računar može da razume)
+		Kod na asemblerskom jeziku => Asembler => Mašinski kod programa + Podaci => Računar => Rezultat
+	
+	* Makroasembleri (prevode skupove asemblerskih naredbi => za svaki makro prepisuje asemblerski kod)
+		Kod na makro asemblerskom jeziku => Makroprocesor => Kod na asemblerskom jeziku => Asembler => Mašinski kod programa + Podaci => Računar => Rezultat
+
+	Prevodioci jezika višeg nivoa:
+		* Kompilator:
+			Logika: Prevodi ceo kod odjednom, formira izvršnu verziju koja može da se izvrši više puta bez ponovnog prevođenja
+			Nedostatak: Vreme
+			Prednost: Ponovno izvršavanja koda bez potrebe prevođenja
+			
+		* Interpretator:
+			Logika: Prevodi deo po deo programa i odmah nakon formiranja celine koja može da se izvrši, je izvršava
+			Prednost: Brzina
+			Nedostatak: Nakon izvršenja se iz memorije briše prevodeni deo i potrebno je ponovo izvršiti prevođenje programa ukoliko želimo da ga ponovo pokrenemo
+			Korisno za skript jezike, web stranice itd....
+			
+		* Hibridni kompilator:
+			
+		
+		* Just-in-time kompilator
+			Logika: isto kao interpretator, međutim prevod ostaje u memoriji
+			
+	
+	Faze prevođenja
+	--------------------------- Mašinski nezavisne (faze analize) -------------------------------------
+	
+									   Izvorni program
+											| |
+											 V
+											 
+									[Leksiški analizator]
+	(Prepoznavanje reči u kodu => raščlanjivanje reči u kodu na niz reči i svakoj reči dodeljivanje značenja)
+	
+											| | (jezik simbola (tokena))
+											 V
+											 
+									[Sintaksni analizator]
+				(Provera da li su naredbe napisane u skaldu sa pravilima jezika)	
+				
+											| | (Sintaksno stablo)
+											 V
+									[Semantička analiza]
+			(Provera da li napisane naredbe imaju smisla, da li su međusobno usaglašene)
+			
+	------------------------------- Mašinski zavisne faze ----------------------------------
+	
+											| |
+											 V
+									[Generator međukoda] ----------------------=>				[Optimizacija] (mnogo lakša nad međukodom)
+			(idalje mašinski nezavisno, ali je kod glomazan i zahteva optimizaciju)					  |
+																									  V
+							(Međukod)		| |								<=-------------------------
+											 V
+									  [Generator koda]
+							(Mašisnki kod)	| |
+											 V
+										[Kompjuter]
+											| |
+											 V
+										 Rezultati
+										 
+										 
+		* Hibridni prevodioci (Java prva)
+			Kreće se sa prevođenjem koda, dok se ne dobije međukod, dalje se koristi interpretator za izvršvanje
+			Koristi se za distribuciju koda na različitim mašinama
+			
+		* Multijezički prevodioci (.Net prvi)
+			N jezika, M platformi, svede se na N prevodioca, koji prevode jezik u međukod,
+			a onda imamo još M prevodioca koji zavise od mašine
+			
+		
+
+Leksička analiza - izdvajanje reči iz ulaznog koda i određivanje njihovog značenja
+	* Tabela simbola
+	* Izlaz je niz tokena
+	
+Sintaksna analiza - provera da li je ulazni kod napisan u skladu sa pravilima jezika
+	* Formalne gramatike
+	* Pravila jezika (izrazi i naredbe)
+	* Izlaz je sintaksno stablo
+	
+Semantička analiza - Provera da li su sprepoznate sintaksne celine međusobno usaglašene
+	* Da li su promenljive deklarisane?
+	* Da li su promenljive inicijalizovane?
+	* Tipovi podataka koji učestvuju u operacijama moraju da budu usklađeni?
+	
+Generisanje međukoda visokog nivoa - bliže sintaksnom stablu
+	* Izlaz je apstraktno sintaksno stablo
+	* Redukcija sintaksnog stabla (ostaju samo čvorovi sa konkretnim operacijama)
+	* Apstraktno sintaksno stablo => zadržava samo čvorove obrade
+
+Generisanje međukoda nisko nivoa - bliže našinskom kodu
+	* Preslikavanje svakog čvora sintaksnog stabla u naredbu mašinskog koda
+	* Bottom-Up pristup
+	* Izlaz je niz neoptimizovanih instrukcija
+
+Optimizacija međukoda
+	* Uklanjaju se bespotrebni koraci
+
+Generisanje koda
+	* na osnovu međukoda se generiše konkretan mašinski kod
+	
+Optimizacija izlaznog koda
+	* Optimizacija na osnovu pravila koja mogu da se primene za konkretni mašinski jezik
+	* Izlaz je finalni kod spreman za izvršenje

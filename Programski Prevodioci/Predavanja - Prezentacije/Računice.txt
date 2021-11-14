@@ -1,0 +1,19 @@
+Računice
+
+1. Dat je konačni automat
+M = ({q0, q1}, {a, b}, q0, {g(q0, a) = q0, g(q0, b) = q1, g(q1, a) = q0, g(q1, b) = q1}, {q1})
+
+q1 = q1b + q0b
+q1 = q0bb*
+
+q0 = q0e + q0a + q1a
+q0 = q0e + q1aa*
+
+q1 = (q0e + q1aa*)bb*
+q1 = q0ebb* + q1aa*bb*
+q1 = q0ebb*(aa*bb*)*
+
+RE = bb*(aa*bb*)* <=> b(aa*b + b)*
+
+2. Dat je konačni automat
+M = ({q0, q1}, {a, b}, q0, {g(q0, a) = q0, g(q0, b) = q1, g(q1, a) = q0, g(q1, b) = q1}, {q1})

@@ -1,0 +1,62 @@
+Switch - 2960
+Router - 2811
+L3 - 3560
+
+// Prikaz vlan tabele
+Switch#show vlan
+
+// Kreiranje novog vlana <broj> na switch-u
+// OVO SE RADI SAMO NA SVIČU NEMA POENTE NA RUTERU I ZATO NI NE POSTOJI
+Switch(config)#vlan <broj>
+
+// Imenovanje odgovarajućeg vlana u <naziv>
+Switch(config-vlan)#name <naziv>
+
+// Prebacivanje odgovarajućeg porta switch-a na vlan <broj>
+Switch(config-if)#switch port access vlan <broj>
+
+// Konfigurisanje više interfejsa u opsegu fa0/[i-j] (uključujući i,j)
+Switch(config)#int range fa 0/i-j
+
+// Prebacivanje porta (interfejsa) switch-a u trunk mode
+Switch(config-if)#switchport mode trunk
+
+// Prikaz intrefejsa koji su u trunk režimu
+Switch#show interface trunk
+
+
+** Podešavanje 802.1q protokola na ruteru (2811)
+
+1. Omogućavanje interfejsa na kom ćemo kreirati pod-interfejse
+Router(config-if)#no shutdown
+
+2. Kreiranje i prelaz na konfiguraciju pod-iterfejsa
+Router(config)#interface <oznaka interfejsa>.<broj pod-interfejsa>
+
+3. Omogućavanje enkapsulacije Ethernet paketa 802.1q protokolom
+Router(config-subif)#encapsulation dot1Q <broj>
+
+4. Podešavanje ip adrese i maske za virtuelni interfejs
+Router(config-subif)#ip address <adresa> <maska>
+
+**********************************************
+
+
+** Podešavanje 802.1q protokola na layer 3 switch-u (3560 - 24PS)
+
+1. Kreiranje odgovarajućih vlanova
+SwitchL3#vlan <broj>
+
+2. Podešavanje IP adrese vlana
+SwitchL3(conf-if)#ip address <adresa> <maska>
+
+// Ovo se radi za portove koji nisu trunk
+3. Prebacivanje odgovarajućih interfejsa (portova) na odgovarajući vlan
+SwitchL3(config-if)#switchport access vlan <broj>
+
+// Ovo se radi za trunk portove
+4. Podešavanje enkapsulacije Ethernet paketa (switch podržava i 802.1q i ISL(Inter Switch Link))
+SwitchL3(config-if)#switch trunk encapsulation dot1q
+
+5. Prebacivanje interfejsa da rade u trunk režimu
+SwitchL3(config-if)#switchport mode trunk
