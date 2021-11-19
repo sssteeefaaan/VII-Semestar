@@ -96,6 +96,6 @@ VII Semestar:
 			Šifra predmeta: 2OER7A07
 			Predmetni nastavnik: /
 			Snimci:
-				Sve: /
-				Predavanja: /
+				Sve: https://www.youtube.com/watch?v=sPvvJpVaJmo&list=PLWLPHZCdUNsNzLfNj9J_z6uBzXd7CveVO
+				Predavanja: https://www.youtube.com/watch?v=sPvvJpVaJmo&list=PLWLPHZCdUNsOeUIaK9e5uhkJDshRJsTat
 				Računske vežbe: /
