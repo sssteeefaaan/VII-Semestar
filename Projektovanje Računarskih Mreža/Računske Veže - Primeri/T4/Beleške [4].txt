@@ -1,0 +1,109 @@
+Zadatak 1: Povezati i konfigurisati računarsku mrežu sa slike. Lokalna mreža povezana na ruter R1 ima 5, a mreža povezana na R2 ima 4 virtuelne mreže. Konfiguraciju mreže obaviti korišćenjem VTP i DTP protokola. Imena domena izabrati po želji. Jedan domen implementirati sa, a jedan bez VTP šifre. Predvideti po 2 VTP servera na svakom domenu. Rutiranje između rutera obaviti preko RIP ruting protokola. Predvideti računare za testiranje ispravnosti rada mreže. Na raspolaganju su IP adrese 192.168.1.0/24 - 192.168.10.0/24.
+
+****************************** PRIKAZ ******************************
+
+// Prikaz statusa VTP-a
+Switch#show vtp status
+
+// Prikaz vlanova
+Switch#show vlan brief
+
+// Prikaz trunk portova
+Switch#show interface trunk
+
+// Prikaz ip interfejsa
+Switch#show ip interface brief
+
+// Prikaz routing tabele (vraća da tabela ne postoji ukoliko nije podešeno rutiranje)
+Router/L3#show ip route
+
+// Prikaz da li je i koji je VTP password na domenu
+Switch#show vtp password
+
+********************************************************************
+
+// Uključiti trunk na svim portovima sa "server swtich-a"
+// Ovo je ujedno i omogućavanje VTP-a (Vlan Trunking Protocol)
+Switch(config-if-range)#switchport mode trunk
+
+// Poslati prvu advertisement poruku
+Switch(config)#vtp domain _ime_domena_
+
+// Kreirati vlanove i dodeliti im imena
+Switch(config)#vlan _id_
+Switch(config-vlan)#name _ime_
+
+// Postavlajnje switch-a na kome je omogućen VTP i trunk port da radi u client/server/transparent mode-u
+Switch#vtp mode _režim_
+
+	_režim može da ime vrednosti:
+		- client
+		- server
+		- transparent
+
+// Prebacivanje interfejsa (na kojima su hostovi) na odgovarajuće vlanove
+// Ne podešava se IP adresa vlanu, at least not here!!!!!
+Switch(config-if)#switchport access vlan _id_
+
+// Postavljanje VTP šifre
+Switch(config)#vtp password _šifra_
+
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+!!!! Nakon podešavanja šifre, samo oni switch-evi na kojima se podesi šifra (korektna) prihvataju revizije !!!!
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
+
+// Treba kreirati virtuelne interfejse na ruterima, postaviti vrstu enkapsulacije na 802.11q kao i odgovarajuće ip adrese
+
+// Mora da se omogući RIP
+Router(config)#router rip
+
+// Ubacivanje mreža koje "broadcast-uje" ruter drugim ruterima na mreži
+// Ovo su direktno povezane mreže na ruteru i njihove podatke ruter šalje ostalima
+// Ukljuciti i WAN ip adresu kako bi LAN računari mogli da vide spolja!!!!!
+Router(config-router)#network _adresa_ [BEZ MASKE]
+
+
+
+
+
+
+Zadatak 2: Konfigurisati mrežu prikazanu na slici. Logičku topologiju lokalne mreže povezane na L3 switch čine 4 VLAN-a. IP adrese dodeliti proizvoljno. Vlanove konfigurisati pomoću VTP protokola. Za rutiranje između rutera i L3 switch-a koristiti RIP protokol.
+
+
+// Prebacivanje porta/ova u trunk režim
+
+	// Postavljanje encapsulacije ethernet paketa na dot1q
+	L3(config-if)#switchport trunk encapsulation dot1q
+	
+	// Postavljanje režima porta u trunk
+	L3(config-if)#switchport mode trunk
+	
+	** Ukoliko je interface rutera down, neće da se prikaže interfejs switch-a u trunk listi!
+	
+// Ovim je VTP omogućen i dalje šalje advertisement (podrazumevani režim je server)	
+
+// Postavljanje domena
+L3(config)#vtp domain _naziv_domena_
+
+// Postavaljanje lozinke (Važe ista pravila, ko nema lozinku ne prihvata advertisements)
+L3(config)#vtp password _lozinka_
+
+// Kreiranje vlan-ova i postavljanje njihovih imena
+	L3(config)#vlan _ID_
+	L3(config-vlan)#name _ime_
+	
+// Omogućavanje ip rutiranja na L3
+L3(config)#ip route
+
+// Postavljanje IP adresa VLAN-interfejsima-ovima (Nije config-vlan!!!!)
+	L3(config)#interface vlan _ID_
+	L3(config-if)#ip address _adresa_ _maska_
+	L3(config-if)#no shutdown
+	
+** Za komunikaciju rutera i L3 switch-a se koriste dva prilaza:
+	(trunk) Odvojeni vlan:
+		- Na switch-u se pravi vlan i postavlja se ip adresa INTERFEJSA tog vlana
+		- Na ruteru se pravi VIRTUELNI INTERFEJS KOJI KORSITI ENKAPULACIJU VLAN ID
+		- MORA DA BUDE ENABLE-OVAN SWITCHPORT
+	(access) no switchport prvo, pa onda postavljanje ip adrese direktno na interfejs L3 switch-a kao i za rutere
