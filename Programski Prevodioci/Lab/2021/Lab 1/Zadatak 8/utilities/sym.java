@@ -1,3 +1,5 @@
+package utilities;
+
 public class sym {
     public final static int EOF = 0;
     public final static int STRATEGY_BEGIN = 1;

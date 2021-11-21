@@ -3,6 +3,8 @@
 // source: C:/Users/stefa/Desktop/VII Semestar/Programski Prevodioci/Lab/2021/Lab 1/Zadatak 8/spec.flex
 
 // Import sekcija
+import utilities.KWTable;
+import utilities.sym;
 
 
 // See https://github.com/jflex-de/jflex/issues/222
@@ -67,11 +69,9 @@ class MPLexer {
     "\11\0\2\1\2\2\1\1\22\0\1\1\1\0\1\3"+
     "\4\0\1\4\1\5\1\6\1\7\1\10\1\0\1\11"+
     "\1\12\1\0\1\13\11\14\1\0\1\15\1\16\1\17"+
-    "\1\20\2\0\32\21\6\0\1\22\1\21\1\23\2\21"+
-    "\1\24\2\21\1\25\1\21\1\26\1\27\1\30\1\31"+
-    "\1\32\2\21\1\33\1\34\2\21\1\35\3\21\1\36"+
-    "\1\37\1\0\1\40\7\0\1\2\u01a2\0\2\2\326\0"+
-    "\u0100\2";
+    "\1\20\2\0\32\21\6\0\2\21\1\22\11\21\1\23"+
+    "\1\21\1\24\13\21\1\25\1\0\1\26\1\27\6\0"+
+    "\1\2\u01a2\0\2\2\326\0\u0100\2";
 
   private static int [] zzUnpackcmap_blocks() {
     int [] result = new int[1024];
@@ -99,12 +99,12 @@ class MPLexer {
 
   private static final String ZZ_ACTION_PACKED_0 =
     "\2\0\1\1\1\2\2\1\1\3\1\4\1\5\1\6"+
-    "\1\1\1\7\1\1\1\10\1\1\1\11\1\12\1\13"+
-    "\1\14\10\0\1\7\4\0\1\7\17\0\1\7\4\0"+
-    "\1\15\1\16\1\7";
+    "\1\1\2\7\1\10\1\1\1\11\1\12\1\13\1\14"+
+    "\1\1\5\0\1\7\1\12\1\0\2\7\6\0\1\15"+
+    "\1\16";
 
   private static int [] zzUnpackAction() {
-    int [] result = new int[56];
+    int [] result = new int[38];
     int offset = 0;
     offset = zzUnpackAction(ZZ_ACTION_PACKED_0, offset, result);
     return result;
@@ -129,16 +129,14 @@ class MPLexer {
   private static final int [] ZZ_ROWMAP = zzUnpackRowMap();
 
   private static final String ZZ_ROWMAP_PACKED_0 =
-    "\0\0\0\41\0\102\0\102\0\143\0\204\0\102\0\102"+
-    "\0\102\0\102\0\245\0\306\0\347\0\102\0\u0108\0\102"+
-    "\0\u0129\0\102\0\102\0\u014a\0\u016b\0\u018c\0\u01ad\0\347"+
-    "\0\u01ce\0\u01ef\0\u0210\0\u0231\0\u0252\0\u0273\0\u0294\0\u02b5"+
-    "\0\102\0\u02d6\0\u02f7\0\u0318\0\u0339\0\u035a\0\u037b\0\u039c"+
-    "\0\u03bd\0\u03de\0\u03ff\0\u0420\0\u0441\0\u0462\0\u0483\0\u04a4"+
-    "\0\u04c5\0\u04e6\0\u0507\0\u0528\0\u0549\0\102\0\102\0\u056a";
+    "\0\0\0\30\0\60\0\60\0\110\0\140\0\60\0\60"+
+    "\0\60\0\60\0\170\0\220\0\250\0\60\0\300\0\60"+
+    "\0\330\0\60\0\60\0\360\0\u0108\0\u0120\0\u0138\0\u0150"+
+    "\0\u0168\0\u0180\0\360\0\u0198\0\60\0\u01b0\0\u01c8\0\u01e0"+
+    "\0\u01f8\0\u0210\0\u0228\0\u0240\0\60\0\60";
 
   private static int [] zzUnpackRowMap() {
-    int [] result = new int[56];
+    int [] result = new int[38];
     int offset = 0;
     offset = zzUnpackRowMap(ZZ_ROWMAP_PACKED_0, offset, result);
     return result;
@@ -163,24 +161,20 @@ class MPLexer {
   private static final String ZZ_TRANS_PACKED_0 =
     "\1\3\1\4\1\0\1\5\1\6\1\7\1\10\1\11"+
     "\1\12\1\13\1\3\1\14\1\15\1\16\1\17\1\20"+
-    "\1\3\16\21\1\22\1\23\23\2\1\24\15\2\77\0"+
-    "\1\25\25\0\1\26\10\0\1\27\17\0\1\14\1\30"+
-    "\36\0\1\31\51\0\1\32\26\0\1\33\42\0\2\34"+
-    "\4\0\16\21\2\0\23\2\1\24\6\2\1\35\6\2"+
-    "\31\0\1\36\34\0\1\37\42\0\1\40\24\0\1\41"+
-    "\1\42\51\0\1\43\36\0\1\44\30\0\2\34\4\0"+
-    "\16\34\2\0\23\2\1\24\4\2\1\45\10\2\22\0"+
-    "\1\46\42\0\1\47\46\0\1\50\31\0\1\51\41\0"+
-    "\1\52\46\0\1\53\6\0\23\2\1\24\4\2\1\54"+
-    "\10\2\26\0\1\55\45\0\1\56\42\0\1\57\30\0"+
-    "\1\60\46\0\1\61\35\0\1\62\10\0\11\2\1\63"+
-    "\11\2\1\24\15\2\3\0\1\41\22\0\1\55\34\0"+
-    "\1\64\50\0\1\64\32\0\1\65\26\0\1\31\7\0"+
-    "\1\61\46\0\1\66\10\0\20\2\1\67\2\2\1\24"+
-    "\15\2\4\0\1\41\67\0\1\70\27\0\1\70\16\0";
+    "\1\3\4\21\1\22\1\23\1\24\22\2\1\25\5\2"+
+    "\43\0\2\26\4\0\4\26\16\0\2\27\4\0\4\27"+
+    "\16\0\1\14\1\15\25\0\1\30\27\0\1\30\2\15"+
+    "\24\0\1\31\31\0\2\32\4\0\4\21\24\0\4\33"+
+    "\3\0\22\2\1\25\1\2\1\34\3\2\3\0\1\35"+
+    "\7\0\2\26\4\0\4\26\7\0\1\35\36\0\1\35"+
+    "\1\36\35\0\1\37\20\0\2\32\4\0\4\32\3\0"+
+    "\22\2\1\25\1\40\4\2\13\0\2\36\37\0\1\41"+
+    "\3\0\22\2\1\25\1\42\4\2\23\0\1\43\4\0"+
+    "\11\2\1\44\10\2\1\25\5\2\23\0\1\45\4\0"+
+    "\20\2\1\46\1\2\1\25\5\2";
 
   private static int [] zzUnpackTrans() {
-    int [] result = new int[1419];
+    int [] result = new int[600];
     int offset = 0;
     offset = zzUnpackTrans(ZZ_TRANS_PACKED_0, offset, result);
     return result;
@@ -224,11 +218,11 @@ class MPLexer {
 
   private static final String ZZ_ATTRIBUTE_PACKED_0 =
     "\2\0\2\11\2\1\4\11\3\1\1\11\1\1\1\11"+
-    "\1\1\2\11\10\0\1\1\4\0\1\11\17\0\1\1"+
-    "\4\0\2\11\1\1";
+    "\1\1\2\11\1\1\5\0\2\1\1\0\1\11\1\1"+
+    "\6\0\2\11";
 
   private static int [] zzUnpackAttribute() {
-    int [] result = new int[56];
+    int [] result = new int[38];
     int offset = 0;
     offset = zzUnpackAttribute(ZZ_ATTRIBUTE_PACKED_0, offset, result);
     return result;
@@ -726,98 +720,98 @@ class MPLexer {
         switch (zzAction < 0 ? zzAction : ZZ_ACTION[zzAction]) {
           case 1:
             System.out.println("line: "+(yyline+1)+" "+"col: "+(yycolumn+1)+" "+"char: "+yychar+" "+"match: --"+zzToPrintable(yytext())+"--");
-            System.out.println("action [94] { if (yytext() != null && yytext().length() > 0) System.out.println( \"Error at ln: \" + yyline + \", column: \" + yycolumn + \" -- \" + yytext() ); }");
+            System.out.println("action [96] { if (yytext() != null && yytext().length() > 0) System.out.println( \"Error at ln: \" + yyline + \", column: \" + yycolumn + \" -- \" + yytext() ); }");
             { if (yytext() != null && yytext().length() > 0) System.out.println( "Error at ln: " + yyline + ", column: " + yycolumn + " -- " + yytext() );
             }
             // fall through
           case 15: break;
           case 2:
             System.out.println("line: "+(yyline+1)+" "+"col: "+(yycolumn+1)+" "+"char: "+yychar+" "+"match: --"+zzToPrintable(yytext())+"--");
-            System.out.println("action [49] { ; }");
+            System.out.println("action [51] { ; }");
             { ;
             }
             // fall through
           case 16: break;
           case 3:
             System.out.println("line: "+(yyline+1)+" "+"col: "+(yycolumn+1)+" "+"char: "+yychar+" "+"match: --"+zzToPrintable(yytext())+"--");
-            System.out.println("action [53] { return new Yytoken( sym.OPEN_BRACKET, yytext(), yyline, yycolumn, yychar ); }");
+            System.out.println("action [55] { return new Yytoken( sym.OPEN_BRACKET, yytext(), yyline, yycolumn, yychar ); }");
             { return new Yytoken( sym.OPEN_BRACKET, yytext(), yyline, yycolumn, yychar );
             }
             // fall through
           case 17: break;
           case 4:
             System.out.println("line: "+(yyline+1)+" "+"col: "+(yycolumn+1)+" "+"char: "+yychar+" "+"match: --"+zzToPrintable(yytext())+"--");
-            System.out.println("action [54] { return new Yytoken( sym.CLOSE_BRACKET, yytext(), yyline, yycolumn, yychar ); }");
+            System.out.println("action [56] { return new Yytoken( sym.CLOSE_BRACKET, yytext(), yyline, yycolumn, yychar ); }");
             { return new Yytoken( sym.CLOSE_BRACKET, yytext(), yyline, yycolumn, yychar );
             }
             // fall through
           case 18: break;
           case 5:
             System.out.println("line: "+(yyline+1)+" "+"col: "+(yycolumn+1)+" "+"char: "+yychar+" "+"match: --"+zzToPrintable(yytext())+"--");
-            System.out.println("action [61] { return new Yytoken( sym.MULTIPLY, yytext(), yyline, yycolumn, yychar ); }");
+            System.out.println("action [63] { return new Yytoken( sym.MULTIPLY, yytext(), yyline, yycolumn, yychar ); }");
             { return new Yytoken( sym.MULTIPLY, yytext(), yyline, yycolumn, yychar );
             }
             // fall through
           case 19: break;
           case 6:
             System.out.println("line: "+(yyline+1)+" "+"col: "+(yycolumn+1)+" "+"char: "+yychar+" "+"match: --"+zzToPrintable(yytext())+"--");
-            System.out.println("action [60] { return new Yytoken( sym.PLUS, yytext(), yyline, yycolumn, yychar ); }");
+            System.out.println("action [62] { return new Yytoken( sym.PLUS, yytext(), yyline, yycolumn, yychar ); }");
             { return new Yytoken( sym.PLUS, yytext(), yyline, yycolumn, yychar );
             }
             // fall through
           case 20: break;
           case 7:
             System.out.println("line: "+(yyline+1)+" "+"col: "+(yycolumn+1)+" "+"char: "+yychar+" "+"match: --"+zzToPrintable(yytext())+"--");
-            System.out.println("action [78] { return new Yytoken( sym.ID, yytext(), yyline, yycolumn, yychar ); }");
+            System.out.println("action [80] { return new Yytoken( sym.ID, yytext(), yyline, yycolumn, yychar ); }");
             { return new Yytoken( sym.ID, yytext(), yyline, yycolumn, yychar );
             }
             // fall through
           case 21: break;
           case 8:
             System.out.println("line: "+(yyline+1)+" "+"col: "+(yycolumn+1)+" "+"char: "+yychar+" "+"match: --"+zzToPrintable(yytext())+"--");
-            System.out.println("action [66] { return new Yytoken( sym.SEMICOLON, yytext(), yyline, yycolumn, yychar ); }");
+            System.out.println("action [68] { return new Yytoken( sym.SEMICOLON, yytext(), yyline, yycolumn, yychar ); }");
             { return new Yytoken( sym.SEMICOLON, yytext(), yyline, yycolumn, yychar );
             }
             // fall through
           case 22: break;
           case 9:
             System.out.println("line: "+(yyline+1)+" "+"col: "+(yycolumn+1)+" "+"char: "+yychar+" "+"match: --"+zzToPrintable(yytext())+"--");
-            System.out.println("action [62] { return new Yytoken( sym.ASSIGN, yytext(), yyline, yycolumn, yychar ); }");
+            System.out.println("action [64] { return new Yytoken( sym.ASSIGN, yytext(), yyline, yycolumn, yychar ); }");
             { return new Yytoken( sym.ASSIGN, yytext(), yyline, yycolumn, yychar );
             }
             // fall through
           case 23: break;
           case 10:
             System.out.println("line: "+(yyline+1)+" "+"col: "+(yycolumn+1)+" "+"char: "+yychar+" "+"match: --"+zzToPrintable(yytext())+"--");
-            System.out.println("action [70] { return getKW(); }");
+            System.out.println("action [72] { return getKW(); }");
             { return getKW();
             }
             // fall through
           case 24: break;
           case 11:
             System.out.println("line: "+(yyline+1)+" "+"col: "+(yycolumn+1)+" "+"char: "+yychar+" "+"match: --"+zzToPrintable(yytext())+"--");
-            System.out.println("action [55] { return new Yytoken( sym.OPEN_CURLY_BRACKET, yytext(), yyline, yycolumn, yychar ); }");
+            System.out.println("action [57] { return new Yytoken( sym.OPEN_CURLY_BRACKET, yytext(), yyline, yycolumn, yychar ); }");
             { return new Yytoken( sym.OPEN_CURLY_BRACKET, yytext(), yyline, yycolumn, yychar );
             }
             // fall through
           case 25: break;
           case 12:
             System.out.println("line: "+(yyline+1)+" "+"col: "+(yycolumn+1)+" "+"char: "+yychar+" "+"match: --"+zzToPrintable(yytext())+"--");
-            System.out.println("action [56] { return new Yytoken( sym.CLOSE_CURLY_BRACKET, yytext(), yyline, yycolumn, yychar ); }");
+            System.out.println("action [58] { return new Yytoken( sym.CLOSE_CURLY_BRACKET, yytext(), yyline, yycolumn, yychar ); }");
             { return new Yytoken( sym.CLOSE_CURLY_BRACKET, yytext(), yyline, yycolumn, yychar );
             }
             // fall through
           case 26: break;
           case 13:
             System.out.println("line: "+(yyline+1)+" "+"col: "+(yycolumn+1)+" "+"char: "+yychar+" "+"match: --"+zzToPrintable(yytext())+"--");
-            System.out.println("action [45] { yybegin( COMMENT ); }");
+            System.out.println("action [47] { yybegin( COMMENT ); }");
             { yybegin( COMMENT );
             }
             // fall through
           case 27: break;
           case 14:
             System.out.println("line: "+(yyline+1)+" "+"col: "+(yycolumn+1)+" "+"char: "+yychar+" "+"match: --"+zzToPrintable(yytext())+"--");
-            System.out.println("action [46] { yybegin( YYINITIAL ); }");
+            System.out.println("action [48] { yybegin( YYINITIAL ); }");
             { yybegin( YYINITIAL );
             }
             // fall through

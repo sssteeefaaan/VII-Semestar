@@ -1,4 +1,6 @@
 // Import sekcija
+import utilities.KWTable;
+import utilities.sym;
 
 %%
 
@@ -31,10 +33,10 @@
 
 // Makroi
 cifra = [0-9]
-niz_cifara = (0|[1-9]cifra*)
+niz_cifara = (0|[1-9]{cifra}*)
 slovo = [A-Za-z]
-znak = (cifra|slovo)
-niz_znakova = znak+
+znak = ({cifra}|{slovo})
+niz_znakova = {znak}+
 
 
 %%
@@ -67,7 +69,7 @@ niz_znakova = znak+
 
 
 // Kljucne reci
-{slovo}+ { return getKW(); }
+\~?{slovo}+ { return getKW(); }
 
 // ID-evi
 {slovo}({slovo}|{cifra})* { return new Yytoken( sym.ID, yytext(), yyline, yycolumn, yychar ); }

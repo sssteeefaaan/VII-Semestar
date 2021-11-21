@@ -1,3 +1,5 @@
+package utilities;
+
 import java.util.Hashtable;
 public class KWTable {
     
