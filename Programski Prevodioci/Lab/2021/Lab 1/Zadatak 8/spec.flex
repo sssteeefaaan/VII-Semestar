@@ -77,19 +77,19 @@ niz_znakova = {znak}+
 // Konstante
 
 // int
-[-]?{niz_cifara}  { return new Yytoken( sym.ID, yytext(), yyline, yycolumn, yychar ); }
+[-]?{niz_cifara}  { return new Yytoken( sym.CONST, yytext(), yyline, yycolumn, yychar ); }
 
 // double
-[-]?{niz_cifara}\.{niz_cifara}  { return new Yytoken( sym.ID, yytext(), yyline, yycolumn, yychar ); }
+[-]?{niz_cifara}\.{niz_cifara}  { return new Yytoken( sym.CONST, yytext(), yyline, yycolumn, yychar ); }
 
 // string
-\"{niz_znakova}\"  { return new Yytoken( sym.ID, yytext(), yyline, yycolumn, yychar ); }
+\"{niz_znakova}\"  { return new Yytoken( sym.CONST, yytext(), yyline, yycolumn, yychar ); }
 
 // bool
-true|false  { return new Yytoken( sym.ID, yytext(), yyline, yycolumn, yychar ); }
+true|false  { return new Yytoken( sym.CONST, yytext(), yyline, yycolumn, yychar ); }
 
 // char
-'{znak}'  { return new Yytoken( sym.ID, yytext(), yyline, yycolumn, yychar ); }
+'{znak}'  { return new Yytoken( sym.CONST, yytext(), yyline, yycolumn, yychar ); }
 
 
 // Greska
