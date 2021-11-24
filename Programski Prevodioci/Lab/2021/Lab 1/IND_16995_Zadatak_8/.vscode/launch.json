@@ -4,20 +4,20 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
-
+        {
+            "type": "java",
+            "name": "Launch MPLexer",
+            "request": "launch",
+            "mainClass": "MPLexer",
+            "projectName": "IND_16995_Zadatak_8_8bb403b2",
+            "args": "testInput.txt"
+        },
         {
             "type": "java",
             "name": "Launch Current File",
             "request": "launch",
             "mainClass": "${file}",
             "args": "testInput.txt"
-        },
-        {
-            "type": "java",
-            "name": "Launch MPLexer",
-            "request": "launch",
-            "mainClass": "MPLexer",
-            "projectName": "Zadatak 8_15e82c0"
         }
     ]
 }
