@@ -8,12 +8,20 @@ def countDepth(graph, startNode):
     queue = []
     queue.append([startNode])
     while queue:
+
+        print('Cycle')
+
+        for n in queue:
+            print(n)
+
         curr, * queue = queue
         numb = len(curr)
         for node in graph[curr[numb - 1]]:
             if not graph[node]:
+                print(curr[:numb] + [node])
                 paths += [curr[:numb] + [node]]
             elif node in curr[:numb]:
+                print(curr[:numb])
                 paths += [curr[:numb]]
             else:
                 queue += [curr[:numb] + [node]]
