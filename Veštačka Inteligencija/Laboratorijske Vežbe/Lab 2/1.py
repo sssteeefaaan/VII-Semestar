@@ -1,76 +1,25 @@
-# Napisati funkciju koja određuje visinu stavlja traženja (broj nivoa u stablu traženja), a za algoritam obilaska grafa po širini, koje se formira za zadati polazni čvor i zadati graf
-from functools import reduce
+# Napisati funkciju koja određuje visinu stabla traženja (broj nivoa u stablu traženja), a za algoritam obilaska grafa po širini, koje se formira za zadati polazni čvor i zadati graf.
 from display import display
 
-def findPaths(graph, startNode):
-    paths = list()
 
-    queue = list()
-    visited = set()
-    prev_nodes = dict()
-    prev_nodes[startNode] = None
-    visited.add(startNode)
-    queue.append(startNode)
-    found = False
+def countDepth(graph, startNode):
+    paths = []
 
-    while not found and len(queue):
-        curr, *queue = queue
+    queue = []
+    queue.append([startNode])
+    while queue:
+        curr, * queue = queue
+        numb = len(curr)
+        for node in graph[curr[numb - 1]]:
+            if not graph[node]:
+                paths += [curr[:numb] + [node]]
+            elif node in curr[:numb]:
+                paths += [curr[:numb]]
+            else:
+                queue += [curr[:numb] + [node]]
+            curr += [node]
 
-        for dest in graph[curr]:
-            if dest not in visited:
-                prev_nodes[dest] = curr
-                if dest is endNode:
-                    found = True
-                visited.add(dest)
-                queue.append(dest)
-
-    if found:
-        path.append(endNode)
-        prev = prev_nodes[endNode]
-        
-        while prev is not None:
-            path.append(prev)
-            prev = prev_nodes[prev]
-            
-        path.reverse()
-    return path
-
-def findPath(graph, startNode, endNode):
-    path = list()
-
-    if startNode is endNode:
-        path.append(startNode)
-        return path
-
-    queue = list()
-    visited = set()
-    prev_nodes = dict()
-    prev_nodes[startNode] = None
-    visited.add(startNode)
-    queue.append(startNode)
-    found = False
-
-    while not found and len(queue):
-        curr, *queue = queue
-
-        for dest in graph[curr]:
-            if dest not in visited:
-                prev_nodes[dest] = curr
-                if dest is endNode:
-                    found = True
-                visited.add(dest)
-                queue.append(dest)
-
-    if found:
-        path.append(endNode)
-        prev = prev_nodes[endNode]
-        
-        while prev is not None:
-            path.append(prev)
-            prev = prev_nodes[prev]
-            
-        path.reverse()
-    return path
+    return max(list(map(lambda x: len(x), paths)))
 
 
 def main():
@@ -82,10 +31,12 @@ def main():
         'E': ['G', 'H', 'A'],
         'F': ['B', 'C', 'D'],
         'G': ['E', 'F', 'H'],
-        'H': []
+        'H': ['J'],
+        'J': []
     }
-    print(findPath(zadati_graf, 'A', 'H'))
+    print(countDepth(zadati_graf, 'A'))
     display(zadati_graf)
+
 
 if __name__ == '__main__':
     main()
