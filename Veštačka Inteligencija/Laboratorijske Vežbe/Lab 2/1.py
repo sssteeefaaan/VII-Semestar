@@ -2,6 +2,39 @@
 from functools import reduce
 from display import display
 
+def findPaths(graph, startNode):
+    paths = list()
+
+    queue = list()
+    visited = set()
+    prev_nodes = dict()
+    prev_nodes[startNode] = None
+    visited.add(startNode)
+    queue.append(startNode)
+    found = False
+
+    while not found and len(queue):
+        curr, *queue = queue
+
+        for dest in graph[curr]:
+            if dest not in visited:
+                prev_nodes[dest] = curr
+                if dest is endNode:
+                    found = True
+                visited.add(dest)
+                queue.append(dest)
+
+    if found:
+        path.append(endNode)
+        prev = prev_nodes[endNode]
+        
+        while prev is not None:
+            path.append(prev)
+            prev = prev_nodes[prev]
+            
+        path.reverse()
+    return path
+
 def findPath(graph, startNode, endNode):
     path = list()
 
