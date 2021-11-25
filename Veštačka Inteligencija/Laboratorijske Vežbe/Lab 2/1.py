@@ -30,7 +30,7 @@ def findPath(graph, startNode, endNode):
     queue.append(startNode)
     found = False
     
-    while not (found or len(queue)):
+    while not found and len(queue):
         curr, *queue = queue
         
         print(curr)
