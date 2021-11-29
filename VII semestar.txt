@@ -88,9 +88,10 @@ VII Semestar:
 			Šifra predmeta: 2OER7A06
 			Predmetni nastavnik: /
 			Snimci:
-				Sve: /
-				Predavanja: /
-				Računske vežbe: /
+				Školska 2020/21:
+					Sve: https://www.youtube.com/watch?v=6MT1mg6LuF4&list=PLWLPHZCdUNsOBtLuzT5OBOkC_dNYGjTV3
+					Predavanja: https://www.youtube.com/watch?v=6MT1mg6LuF4&list=PLWLPHZCdUNsPKC7BxdNh2iHVc-_tmXwe2
+					Računske vežbe: https://www.youtube.com/watch?v=BEPGhU1MT3c&list=PLWLPHZCdUNsOpWf9w_rWrpQJeWyWiheux
 
 		7. Tehnologije za podršku učenju
 			Šifra predmeta: 2OER7A07
