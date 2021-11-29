@@ -1,6 +1,6 @@
 from functools import reduce
 from matplotlib.pyplot import show
-from networkx import DiGraph, draw
+from networkx import DiGraph, draw_kamada_kawai
 
 
 def display(grph):
@@ -10,10 +10,10 @@ def display(grph):
                [(key, val) for (key, val) in grph.items()],
                [])
     ))
-    draw(G,
-         with_labels=True,
-         node_size=2000,
-         font_size=16,
-         arrows=True,
-         arrowsize=20)
+    draw_kamada_kawai(G,
+                      with_labels=True,
+                      node_size=2000,
+                      font_size=16,
+                      arrows=True,
+                      arrowsize=20)
     show()
