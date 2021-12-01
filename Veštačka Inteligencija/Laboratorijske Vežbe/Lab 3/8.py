@@ -41,4 +41,42 @@
 #     return solutions
 
 
+from itertools import permutations
+
+
+def allSums():
+
+    r = range(1, 10)
+    grids = permutations(r)
+
+    solutions = [grid for grid in grids if allSumsAre15(grid)]
+    return solutions
+
+
+def allSumsAre15(grid):
+    return (sumIs15(grid, 0, 1, 2) and
+            sumIs15(grid, 3, 4, 5) and
+            sumIs15(grid, 6, 7, 8) and
+            sumIs15(grid, 0, 3, 6) and
+            sumIs15(grid, 1, 4, 7) and
+            sumIs15(grid, 2, 5, 8))
+
+
+def sumIs15(grid, a, b, c):
+    sum_ = grid[a] + grid[b] + grid[c]
+    return sum_ == 15
+
+
+def printAll():
+    for array in allSums():
+        printArray(array)
+
+
+def printArray(array):
+    print("-----")
+    for i in range(0, 9, 3):
+        print(array[i], array[i+1], array[i+2])
+
+
+printAll()
 # print(pseudoku({'11': 1, '33': 9}))
