@@ -68,9 +68,35 @@ def heuritics(s, e):
 def findNext(state):
     newStates = []
     for vrsta in range(0, 6):
-        newStates += [(vrsta, (state[0]+state[1]+vrsta+1) % 6)]
+        newStates += [(vrsta, (state[0] + state[1] + vrsta + 1) % 6)]
     return newStates
 
 
-print(findPath((1, 2), (3, 4)))
-print(findPathAStar((1, 2), (3, 4)))
+def printBoard(s, c):
+    for i in range(0, 6):
+        for j in range(0, 6):
+            temp = " |  "
+            if (i, j) == c:
+                temp = " | c"
+            if (i, j) == s:
+                temp = " | s"
+            print(temp, end="")
+        print(" |")
+
+
+def main():
+    start = (0, 4)
+    end = (3, 4)
+
+    print('\n***** Branch *****')
+    for step in findPath(start, end):
+        print("\nStep", end="\n\n")
+        printBoard(step, end)
+
+    print('\n\n***** A* *****')
+    for step in findPathAStar(start, end):
+        print("\nStep", end="\n\n")
+        printBoard(step, end)
+
+
+main()
