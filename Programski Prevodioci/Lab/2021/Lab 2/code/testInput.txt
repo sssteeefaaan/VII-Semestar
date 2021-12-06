@@ -1,0 +1,8 @@
+proba1 = 1;
+proba2 = 3;
+proba3 = proba1 + proba2;
+
+repeat (proba1)
+{
+	proba3 = proba1 + proba2;
+}
