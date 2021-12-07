@@ -11,7 +11,7 @@ import utilities.sym;
 %line
 %column
 %char
-%debug
+%standalone
 %type Yytoken
 
 // Konstruktor

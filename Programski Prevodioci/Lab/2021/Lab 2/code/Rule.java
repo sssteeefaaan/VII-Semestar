@@ -1,19 +1,18 @@
 import java.util.LinkedList;
 
 public class Rule {
-    public String left;
-    public LinkedList<String> right;
+    public int left;
+    public LinkedList<Integer> right;
     public int size;
 
-    public Rule(String left, LinkedList<String> right)
-    {
+    public Rule(int left, LinkedList<Integer> right) {
         this.left = left;
 
         this.right = new LinkedList<>();
-        for (String s : right) {
+        for (int s : right) {
             this.right.add(s);
         }
-        
+
         this.size = right.size();
     }
 }

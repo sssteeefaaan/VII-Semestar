@@ -1,48 +1,37 @@
 import java.io.Reader;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Stack;
 
 public class SyntaxAnalizator {
 
-    private Stack<Element> stack;
+    private List<Rule> rules;
+    private Stack<Integer> stack;
     private MPLexer lexicAnalizator;
-    private ArrayList<Rule> rules;
-    private List<HashMap<String, String>> sintaxTable; 
+    private List<HashMap<Integer, String>> sintaxTable;
 
-    SyntaxAnalizator(Reader in, List<Rule> rules, List<HashMap<String, String>> sintaxTable) {
+    SyntaxAnalizator(Reader in) {
         this.stack = new Stack<>();
         this.lexicAnalizator = new MPLexer(in);
 
-        this.rules = new ArrayList<>();
-        for(Rule r : rules)
-            this.rules.add(r);
-
-        this.sintaxTable = new ArrayList<>();
-        for(HashMap<String, String> entry : sintaxTable)
-        {
-            int size = this.sintaxTable.size();
-            this.sintaxTable.add(new HashMap<String, String>());
-            for(String key : entry.keySet())
-                this.sintaxTable.get(size).put(key, entry.get(key));
-        }
+        this.rules = SintaxTable.getRules();
+        this.sintaxTable = SintaxTable.getSintaxTable();
     }
 
-    public int LR()
-    {
+    public int LR() {
         int accepted = 0,
                 error = 0;
 
         Yytoken next = nextlex();
-        Element current = null;
-        push(0, 0);
+        this.stack.push(0);
 
         String action;
 
         do {
-            current = top();
-            action = action(current, next.m_index);
+            for (Integer n : this.stack)
+                System.out.print(n + " ");
+            System.out.println();
+            action = action(top(), next);
             switch (action.split(" ")[0]) {
                 case ("sk"):
                     push(next.m_index, Integer.parseInt(action.split(" ")[1]));
@@ -51,7 +40,7 @@ public class SyntaxAnalizator {
 
                 case ("rk"):
                     int k = Integer.parseInt(action.split(" ")[1]);
-                    pop(rules.get(k).size);
+                    pop(2 * rules.get(k).size);
                     push(rules.get(k).left, goTo(rules.get(k).left));
                     break;
 
@@ -67,16 +56,16 @@ public class SyntaxAnalizator {
 
         return accepted;
     }
-    
-    private int goTo(String reduction) {
-        try{
-            return Integer.parseInt(this.sintaxTable.get(top().state).get(reduction));
-        }
-        catch(Exception e)
-        {
+
+    private int goTo(Integer reduction) {
+        int ret = -1;
+        try {
+            ret = Integer.parseInt(this.sintaxTable.get(top()).get(reduction));
+            System.out.println("Goto(" + top() + ", " + reduction + ") = " + ret);
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        return -1;
+        return ret;
     }
 
     private void pop(int amount) {
@@ -90,44 +79,38 @@ public class SyntaxAnalizator {
     }
 
     private void push(int token, int state) {
-        this.stack.push(new Element(token, state));
-    }
-
-    private void push(String token, int state) {
-        this.stack.push(new Element(token, state));
+        this.stack.push(token);
+        this.stack.push(state);
     }
 
     private Yytoken nextlex() {
-        try{
-        return this.lexicAnalizator.next_token();
-        }
-        catch (Exception e) {
+        try {
+            return this.lexicAnalizator.next_token();
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
     }
 
-    private String action(Element current, int next)
-    {
+    private String action(int alpha, Yytoken next) {
         try {
-            System.out.println("Element: " + current.state + " " + current.state);
-            System.out.println("Next: " + next);
-            return this.sintaxTable.get(current.state).get(next);
+            System.out.println("Element: " + alpha);
+            System.out.println("Next: " + next.m_text);
+            return this.sintaxTable.get(alpha).get(next.m_index);
         } catch (Exception e) {
             e.printStackTrace();
         }
 
         return "err";
     }
-    
-    private Element top() {
-        try{
+
+    private int top() {
+        try {
             return this.stack.peek();
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
-        return null;
+        return -1;
     }
-    
+
 }
