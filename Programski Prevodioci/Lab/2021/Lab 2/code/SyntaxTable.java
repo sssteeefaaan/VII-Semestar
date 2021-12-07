@@ -5,7 +5,7 @@ import java.util.List;
 
 import utilities.sym;
 
-public class SintaxTable {
+public class SyntaxTable {
 
   public final static int STATEMENTS_PRIME = 100;
   public final static int STATEMENTS = 101;
@@ -14,15 +14,15 @@ public class SintaxTable {
   public final static int WHILE_STATEMENT = 104;
   public final static int TERM = 105;
 
-  private static ArrayList<HashMap<Integer, String>> _sintaxTable;
+  private static ArrayList<HashMap<Integer, String>> _syntaxTable;
   private static ArrayList<Rule> _rules;
 
-  public SintaxTable() {
+  public SyntaxTable() {
   }
 
-  public static List<HashMap<Integer, String>> getSintaxTable() {
-    if (_sintaxTable == null)
-      _sintaxTable = new ArrayList<HashMap<Integer, String>>() {
+  public static List<HashMap<Integer, String>> getSyntaxTable() {
+    if (_syntaxTable == null)
+      _syntaxTable = new ArrayList<HashMap<Integer, String>>() {
         {
           // #0
           add(new HashMap<Integer, String>() {
@@ -47,6 +47,7 @@ public class SintaxTable {
             {
               put(sym.ID, "sk 7");
               put(sym.REPEAT, "sk 14");
+              put(STATEMENT, "3");
               put(ASSIGNMENT, "5");
               put(WHILE_STATEMENT, "6");
             }
@@ -55,7 +56,7 @@ public class SintaxTable {
           add(new HashMap<Integer, String>() {
             {
               put(sym.SEMICOLON, "rk 1");
-              put(sym.OPEN_CURLY_BRACKET, "rk 1");
+              put(sym.CLOSE_CURLY_BRACKET, "rk 1");
               put(sym.EOF, "rk 1");
             }
           });
@@ -63,7 +64,7 @@ public class SintaxTable {
           add(new HashMap<Integer, String>() {
             {
               put(sym.SEMICOLON, "rk 2");
-              put(sym.OPEN_CURLY_BRACKET, "rk 2");
+              put(sym.CLOSE_CURLY_BRACKET, "rk 2");
               put(sym.EOF, "rk 2");
             }
           });
@@ -71,7 +72,7 @@ public class SintaxTable {
           add(new HashMap<Integer, String>() {
             {
               put(sym.SEMICOLON, "rk 3");
-              put(sym.OPEN_CURLY_BRACKET, "rk 3");
+              put(sym.CLOSE_CURLY_BRACKET, "rk 3");
               put(sym.EOF, "rk 3");
             }
           });
@@ -79,7 +80,7 @@ public class SintaxTable {
           add(new HashMap<Integer, String>() {
             {
               put(sym.SEMICOLON, "rk 4");
-              put(sym.OPEN_CURLY_BRACKET, "rk 4");
+              put(sym.CLOSE_CURLY_BRACKET, "rk 4");
               put(sym.EOF, "rk 4");
             }
           });
@@ -102,7 +103,7 @@ public class SintaxTable {
             {
               put(sym.SEMICOLON, "rk 5");
               put(sym.PLUS, "sk 10");
-              put(sym.OPEN_CURLY_BRACKET, "rk 5");
+              put(sym.CLOSE_CURLY_BRACKET, "rk 5");
               put(sym.EOF, "rk 5");
             }
           });
@@ -118,7 +119,7 @@ public class SintaxTable {
           add(new HashMap<Integer, String>() {
             {
               put(sym.SEMICOLON, "rk 6");
-              put(sym.OPEN_CURLY_BRACKET, "rk 6");
+              put(sym.CLOSE_CURLY_BRACKET, "rk 6");
               put(sym.EOF, "rk 6");
             }
           });
@@ -128,7 +129,7 @@ public class SintaxTable {
               put(sym.SEMICOLON, "rk 7");
               put(sym.PLUS, "rk 7");
               put(sym.CLOSE_BRACKET, "rk 7");
-              put(sym.OPEN_CURLY_BRACKET, "rk 7");
+              put(sym.CLOSE_CURLY_BRACKET, "rk 7");
               put(sym.EOF, "rk 7");
             }
           });
@@ -138,7 +139,7 @@ public class SintaxTable {
               put(sym.SEMICOLON, "rk 8");
               put(sym.PLUS, "rk 8");
               put(sym.CLOSE_BRACKET, "rk 8");
-              put(sym.OPEN_CURLY_BRACKET, "rk 8");
+              put(sym.CLOSE_CURLY_BRACKET, "rk 8");
               put(sym.EOF, "rk 8");
             }
           });
@@ -183,21 +184,21 @@ public class SintaxTable {
           add(new HashMap<Integer, String>() {
             {
               put(sym.SEMICOLON, "sk 2");
-              put(sym.OPEN_CURLY_BRACKET, "sk 20");
+              put(sym.CLOSE_CURLY_BRACKET, "sk 20");
             }
           });
           // #20
           add(new HashMap<Integer, String>() {
             {
               put(sym.SEMICOLON, "rk 9");
-              put(sym.OPEN_CURLY_BRACKET, "rk 9");
+              put(sym.CLOSE_CURLY_BRACKET, "rk 9");
               put(sym.EOF, "rk 9");
             }
           });
         }
       };
 
-    return _sintaxTable;
+    return _syntaxTable;
   }
 
   public static List<Rule> getRules() {
@@ -205,71 +206,77 @@ public class SintaxTable {
       _rules = new ArrayList<Rule>() {
         {
           // #0
-          add(new Rule(SintaxTable.STATEMENTS_PRIME, new LinkedList<Integer>() {
+          add(new Rule(SyntaxTable.STATEMENTS_PRIME, new LinkedList<Integer>() {
             {
-              add(SintaxTable.STATEMENTS);
-              add(sym.SEMICOLON);
-              add(SintaxTable.STATEMENT);
+              add(SyntaxTable.STATEMENTS);
             }
           }));
           // #1
-          add(new Rule(SintaxTable.STATEMENTS, new LinkedList<Integer>() {
+          add(new Rule(SyntaxTable.STATEMENTS, new LinkedList<Integer>() {
             {
-              add(SintaxTable.STATEMENT);
+              add(SyntaxTable.STATEMENTS);
+              add(sym.SEMICOLON);
+              add(SyntaxTable.STATEMENT);
             }
           }));
           // #2
-          add(new Rule(SintaxTable.STATEMENT, new LinkedList<Integer>() {
+          add(new Rule(SyntaxTable.STATEMENTS, new LinkedList<Integer>() {
             {
-              add(SintaxTable.ASSIGNMENT);
+              add(SyntaxTable.STATEMENT);
             }
           }));
           // #3
-          add(new Rule(SintaxTable.STATEMENT, new LinkedList<Integer>() {
+          add(new Rule(SyntaxTable.STATEMENT, new LinkedList<Integer>() {
             {
-              add(SintaxTable.WHILE_STATEMENT);
+              add(SyntaxTable.ASSIGNMENT);
             }
           }));
           // #4
-          add(new Rule(SintaxTable.ASSIGNMENT, new LinkedList<Integer>() {
+          add(new Rule(SyntaxTable.STATEMENT, new LinkedList<Integer>() {
             {
-              add(sym.ID);
-              add(sym.ASSIGN);
-              add(SintaxTable.TERM);
+              add(SyntaxTable.WHILE_STATEMENT);
             }
           }));
           // #5
-          add(new Rule(SintaxTable.ASSIGNMENT, new LinkedList<Integer>() {
+          add(new Rule(SyntaxTable.ASSIGNMENT, new LinkedList<Integer>() {
             {
               add(sym.ID);
               add(sym.ASSIGN);
-              add(SintaxTable.TERM);
-              add(sym.PLUS);
-              add(SintaxTable.TERM);
+              add(SyntaxTable.TERM);
             }
           }));
           // #6
-          add(new Rule(SintaxTable.WHILE_STATEMENT, new LinkedList<Integer>() {
+          add(new Rule(SyntaxTable.ASSIGNMENT, new LinkedList<Integer>() {
             {
-              add(sym.REPEAT);
-              add(sym.OPEN_BRACKET);
-              add(SintaxTable.TERM);
-              add(sym.CLOSE_BRACKET);
-              add(sym.OPEN_CURLY_BRACKET);
-              add(SintaxTable.STATEMENTS);
-              add(sym.CLOSE_CURLY_BRACKET);
+              add(sym.ID);
+              add(sym.ASSIGN);
+              add(SyntaxTable.TERM);
+              add(sym.PLUS);
+              add(SyntaxTable.TERM);
             }
           }));
           // #7
-          add(new Rule(SintaxTable.TERM, new LinkedList<Integer>() {
+          add(new Rule(SyntaxTable.TERM, new LinkedList<Integer>() {
             {
               add(sym.ID);
             }
           }));
           // #8
-          add(new Rule(SintaxTable.TERM, new LinkedList<Integer>() {
+          add(new Rule(SyntaxTable.TERM, new LinkedList<Integer>() {
             {
               add(sym.CONST);
+            }
+          }));
+          // #9
+          add(new Rule(SyntaxTable.WHILE_STATEMENT, new LinkedList<Integer>() {
+            {
+              add(sym.REPEAT);
+              add(sym.OPEN_BRACKET);
+              add(SyntaxTable.TERM);
+              add(sym.CLOSE_BRACKET);
+              add(sym.OPEN_CURLY_BRACKET);
+              add(SyntaxTable.STATEMENTS);
+              add(sym.CLOSE_CURLY_BRACKET);
             }
           }));
         }

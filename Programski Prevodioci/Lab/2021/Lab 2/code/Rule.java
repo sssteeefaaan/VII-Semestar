@@ -3,7 +3,6 @@ import java.util.LinkedList;
 public class Rule {
     public int left;
     public LinkedList<Integer> right;
-    public int size;
 
     public Rule(int left, LinkedList<Integer> right) {
         this.left = left;
@@ -12,7 +11,14 @@ public class Rule {
         for (int s : right) {
             this.right.add(s);
         }
+    }
 
-        this.size = right.size();
+    @Override
+    public String toString()
+    {
+        String ret = String.format("%d -> ", left);
+        for(int alpha : this.right)
+            ret += String.format("%d ", alpha);
+        return ret;
     }
 }

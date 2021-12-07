@@ -16,7 +16,6 @@ class MPLexer {
 
   /** Initial size of the lookahead buffer. */
   private static final int ZZ_BUFFERSIZE = 16384;
-  private static final String ZZ_NL = System.getProperty("line.separator");
 
   // Lexical states.
   public static final int YYINITIAL = 0;
@@ -98,12 +97,13 @@ class MPLexer {
   private static final int [] ZZ_ACTION = zzUnpackAction();
 
   private static final String ZZ_ACTION_PACKED_0 =
-    "\2\0\1\1\1\2\2\1\1\3\1\4\1\5\1\1"+
-    "\2\6\1\7\1\1\1\10\1\11\1\12\1\13\1\1"+
-    "\5\0\1\14\1\11\1\0\3\6\6\0\1\15\1\16";
+    "\2\0\1\1\1\2\1\3\2\1\1\4\1\5\1\6"+
+    "\1\1\2\7\1\10\1\1\1\11\1\12\1\13\1\14"+
+    "\1\1\2\3\4\0\1\15\1\12\3\0\3\7\6\0"+
+    "\1\16\1\17";
 
   private static int [] zzUnpackAction() {
-    int [] result = new int[38];
+    int [] result = new int[42];
     int offset = 0;
     offset = zzUnpackAction(ZZ_ACTION_PACKED_0, offset, result);
     return result;
@@ -128,14 +128,15 @@ class MPLexer {
   private static final int [] ZZ_ROWMAP = zzUnpackRowMap();
 
   private static final String ZZ_ROWMAP_PACKED_0 =
-    "\0\0\0\27\0\56\0\56\0\105\0\134\0\56\0\56"+
-    "\0\56\0\163\0\212\0\241\0\56\0\270\0\56\0\317"+
-    "\0\56\0\56\0\346\0\375\0\u0114\0\u012b\0\u0142\0\u0159"+
-    "\0\u0170\0\346\0\u0187\0\u0114\0\56\0\u019e\0\u01b5\0\u01cc"+
-    "\0\u01e3\0\u01fa\0\u0211\0\u0228\0\56\0\56";
+    "\0\0\0\27\0\56\0\56\0\56\0\105\0\134\0\56"+
+    "\0\56\0\56\0\163\0\212\0\241\0\56\0\270\0\56"+
+    "\0\317\0\56\0\56\0\346\0\375\0\u0114\0\u012b\0\u0142"+
+    "\0\u0159\0\u0170\0\u0187\0\346\0\375\0\u0114\0\u019e\0\u012b"+
+    "\0\56\0\u01b5\0\u01cc\0\u01e3\0\u01fa\0\u0211\0\u0228\0\u023f"+
+    "\0\56\0\56";
 
   private static int [] zzUnpackRowMap() {
-    int [] result = new int[38];
+    int [] result = new int[42];
     int offset = 0;
     offset = zzUnpackRowMap(ZZ_ROWMAP_PACKED_0, offset, result);
     return result;
@@ -158,21 +159,21 @@ class MPLexer {
   private static final int [] ZZ_TRANS = zzUnpackTrans();
 
   private static final String ZZ_TRANS_PACKED_0 =
-    "\1\3\1\4\1\0\1\5\1\6\1\7\1\10\1\11"+
-    "\1\12\1\3\1\13\1\14\1\15\1\16\1\17\1\3"+
-    "\4\20\1\21\1\22\1\23\21\2\1\24\5\2\27\0"+
-    "\27\25\27\26\12\0\1\13\1\14\24\0\1\27\26\0"+
-    "\1\27\2\14\23\0\1\30\30\0\2\31\4\0\4\20"+
-    "\23\0\4\32\3\0\21\2\1\24\1\2\1\33\3\2"+
-    "\3\25\1\34\23\25\4\0\1\35\34\0\1\35\1\36"+
-    "\34\0\1\37\17\0\2\31\4\0\4\31\3\0\21\2"+
-    "\1\24\1\40\4\2\12\0\2\36\36\0\1\41\3\0"+
-    "\21\2\1\24\1\42\4\2\22\0\1\43\4\0\10\2"+
-    "\1\44\10\2\1\24\5\2\22\0\1\45\4\0\17\2"+
-    "\1\46\1\2\1\24\5\2";
+    "\1\3\1\4\1\5\1\6\1\7\1\10\1\11\1\12"+
+    "\1\13\1\3\1\14\1\15\1\16\1\17\1\20\1\3"+
+    "\4\21\1\22\1\23\1\24\21\25\1\26\5\25\27\0"+
+    "\27\27\27\30\12\0\1\14\1\15\24\0\1\31\26\0"+
+    "\1\31\2\15\23\0\1\32\30\0\2\33\4\0\4\21"+
+    "\23\0\4\34\3\0\21\35\1\36\26\35\1\36\1\35"+
+    "\1\37\3\35\3\27\1\40\23\27\4\0\1\41\34\0"+
+    "\1\41\1\42\34\0\1\43\17\0\2\33\4\0\4\33"+
+    "\3\0\21\35\1\36\1\44\4\35\12\0\2\42\36\0"+
+    "\1\45\3\0\21\35\1\36\1\46\4\35\22\0\1\47"+
+    "\4\0\10\35\1\50\10\35\1\36\5\35\22\0\1\51"+
+    "\4\0\17\35\1\52\1\35\1\36\5\35";
 
   private static int [] zzUnpackTrans() {
-    int [] result = new int[575];
+    int [] result = new int[598];
     int offset = 0;
     offset = zzUnpackTrans(ZZ_TRANS_PACKED_0, offset, result);
     return result;
@@ -215,12 +216,12 @@ class MPLexer {
   private static final int [] ZZ_ATTRIBUTE = zzUnpackAttribute();
 
   private static final String ZZ_ATTRIBUTE_PACKED_0 =
-    "\2\0\2\11\2\1\3\11\3\1\1\11\1\1\1\11"+
-    "\1\1\2\11\1\1\5\0\2\1\1\0\1\1\1\11"+
+    "\2\0\3\11\2\1\3\11\3\1\1\11\1\1\1\11"+
+    "\1\1\2\11\3\1\4\0\2\1\3\0\1\1\1\11"+
     "\1\1\6\0\2\11";
 
   private static int [] zzUnpackAttribute() {
-    int [] result = new int[38];
+    int [] result = new int[42];
     int offset = 0;
     offset = zzUnpackAttribute(ZZ_ATTRIBUTE_PACKED_0, offset, result);
     return result;
@@ -313,23 +314,6 @@ class MPLexer {
     this.zzReader = in;
   }
 
-
-  private static String zzToPrintable(String str) {
-    StringBuilder builder = new StringBuilder();
-    for (int n = 0 ; n < str.length() ; ) {
-      int ch = str.codePointAt(n);
-      int charCount = Character.charCount(ch);
-      n += charCount;
-      if (ch > 31 && ch < 127) {
-        builder.append((char)ch);
-      } else if (charCount == 1) {
-        builder.append(String.format("\\u%04X", ch));
-      } else {
-        builder.append(String.format("\\U%06X", ch));
-      }
-    }
-    return builder.toString();
-  }
   /**
    * Translates raw input code points to DFA table row
    */
@@ -717,103 +701,80 @@ class MPLexer {
       else {
         switch (zzAction < 0 ? zzAction : ZZ_ACTION[zzAction]) {
           case 1:
-            System.out.println("line: "+(yyline+1)+" "+"col: "+(yycolumn+1)+" "+"char: "+yychar+" "+"match: --"+zzToPrintable(yytext())+"--");
-            System.out.println("action [95] { if (yytext() != null && yytext().length() > 0) System.out.println( \"Error at ln: \" + yyline + \", column: \" + yycolumn + \" -- \" + yytext() ); }");
             { if (yytext() != null && yytext().length() > 0) System.out.println( "Error at ln: " + yyline + ", column: " + yycolumn + " -- " + yytext() );
             }
             // fall through
-          case 15: break;
+          case 16: break;
           case 2:
-            System.out.println("line: "+(yyline+1)+" "+"col: "+(yycolumn+1)+" "+"char: "+yychar+" "+"match: --"+zzToPrintable(yytext())+"--");
-            System.out.println("action [51] { ; }");
             { ;
             }
             // fall through
-          case 16: break;
-          case 3:
-            System.out.println("line: "+(yyline+1)+" "+"col: "+(yycolumn+1)+" "+"char: "+yychar+" "+"match: --"+zzToPrintable(yytext())+"--");
-            System.out.println("action [55] { return new Yytoken( sym.OPEN_BRACKET, yytext(), yyline, yycolumn, yychar ); }");
-            { return new Yytoken( sym.OPEN_BRACKET, yytext(), yyline, yycolumn, yychar );
-            }
-            // fall through
           case 17: break;
-          case 4:
-            System.out.println("line: "+(yyline+1)+" "+"col: "+(yycolumn+1)+" "+"char: "+yychar+" "+"match: --"+zzToPrintable(yytext())+"--");
-            System.out.println("action [56] { return new Yytoken( sym.CLOSE_BRACKET, yytext(), yyline, yycolumn, yychar ); }");
-            { return new Yytoken( sym.CLOSE_BRACKET, yytext(), yyline, yycolumn, yychar );
+          case 3:
+            { System.out.print(yytext());
             }
             // fall through
           case 18: break;
-          case 5:
-            System.out.println("line: "+(yyline+1)+" "+"col: "+(yycolumn+1)+" "+"char: "+yychar+" "+"match: --"+zzToPrintable(yytext())+"--");
-            System.out.println("action [62] { return new Yytoken( sym.PLUS, yytext(), yyline, yycolumn, yychar ); }");
-            { return new Yytoken( sym.PLUS, yytext(), yyline, yycolumn, yychar );
+          case 4:
+            { return new Yytoken( sym.OPEN_BRACKET, yytext(), yyline, yycolumn, yychar );
             }
             // fall through
           case 19: break;
-          case 6:
-            System.out.println("line: "+(yyline+1)+" "+"col: "+(yycolumn+1)+" "+"char: "+yychar+" "+"match: --"+zzToPrintable(yytext())+"--");
-            System.out.println("action [79] { return new Yytoken( sym.CONST, yytext(), yyline, yycolumn, yychar ); }");
-            { return new Yytoken( sym.CONST, yytext(), yyline, yycolumn, yychar );
+          case 5:
+            { return new Yytoken( sym.CLOSE_BRACKET, yytext(), yyline, yycolumn, yychar );
             }
             // fall through
           case 20: break;
-          case 7:
-            System.out.println("line: "+(yyline+1)+" "+"col: "+(yycolumn+1)+" "+"char: "+yychar+" "+"match: --"+zzToPrintable(yytext())+"--");
-            System.out.println("action [67] { return new Yytoken( sym.SEMICOLON, yytext(), yyline, yycolumn, yychar ); }");
-            { return new Yytoken( sym.SEMICOLON, yytext(), yyline, yycolumn, yychar );
+          case 6:
+            { return new Yytoken( sym.PLUS, yytext(), yyline, yycolumn, yychar );
             }
             // fall through
           case 21: break;
-          case 8:
-            System.out.println("line: "+(yyline+1)+" "+"col: "+(yycolumn+1)+" "+"char: "+yychar+" "+"match: --"+zzToPrintable(yytext())+"--");
-            System.out.println("action [63] { return new Yytoken( sym.ASSIGN, yytext(), yyline, yycolumn, yychar ); }");
-            { return new Yytoken( sym.ASSIGN, yytext(), yyline, yycolumn, yychar );
+          case 7:
+            { return new Yytoken( sym.CONST, yytext(), yyline, yycolumn, yychar );
             }
             // fall through
           case 22: break;
-          case 9:
-            System.out.println("line: "+(yyline+1)+" "+"col: "+(yycolumn+1)+" "+"char: "+yychar+" "+"match: --"+zzToPrintable(yytext())+"--");
-            System.out.println("action [71] { return getKW(); }");
-            { return getKW();
+          case 8:
+            { return new Yytoken( sym.SEMICOLON, yytext(), yyline, yycolumn, yychar );
             }
             // fall through
           case 23: break;
-          case 10:
-            System.out.println("line: "+(yyline+1)+" "+"col: "+(yycolumn+1)+" "+"char: "+yychar+" "+"match: --"+zzToPrintable(yytext())+"--");
-            System.out.println("action [57] { return new Yytoken( sym.OPEN_CURLY_BRACKET, yytext(), yyline, yycolumn, yychar ); }");
-            { return new Yytoken( sym.OPEN_CURLY_BRACKET, yytext(), yyline, yycolumn, yychar );
+          case 9:
+            { return new Yytoken( sym.ASSIGN, yytext(), yyline, yycolumn, yychar );
             }
             // fall through
           case 24: break;
-          case 11:
-            System.out.println("line: "+(yyline+1)+" "+"col: "+(yycolumn+1)+" "+"char: "+yychar+" "+"match: --"+zzToPrintable(yytext())+"--");
-            System.out.println("action [58] { return new Yytoken( sym.CLOSE_CURLY_BRACKET, yytext(), yyline, yycolumn, yychar ); }");
-            { return new Yytoken( sym.CLOSE_CURLY_BRACKET, yytext(), yyline, yycolumn, yychar );
+          case 10:
+            { return getKW();
             }
             // fall through
           case 25: break;
-          case 12:
-            System.out.println("line: "+(yyline+1)+" "+"col: "+(yycolumn+1)+" "+"char: "+yychar+" "+"match: --"+zzToPrintable(yytext())+"--");
-            System.out.println("action [74] { return new Yytoken( sym.ID, yytext(), yyline, yycolumn, yychar ); }");
-            { return new Yytoken( sym.ID, yytext(), yyline, yycolumn, yychar );
+          case 11:
+            { return new Yytoken( sym.OPEN_CURLY_BRACKET, yytext(), yyline, yycolumn, yychar );
             }
             // fall through
           case 26: break;
-          case 13:
-            System.out.println("line: "+(yyline+1)+" "+"col: "+(yycolumn+1)+" "+"char: "+yychar+" "+"match: --"+zzToPrintable(yytext())+"--");
-            System.out.println("action [47] { yybegin( COMMENT ); }");
-            { yybegin( COMMENT );
+          case 12:
+            { return new Yytoken( sym.CLOSE_CURLY_BRACKET, yytext(), yyline, yycolumn, yychar );
             }
             // fall through
           case 27: break;
-          case 14:
-            System.out.println("line: "+(yyline+1)+" "+"col: "+(yycolumn+1)+" "+"char: "+yychar+" "+"match: --"+zzToPrintable(yytext())+"--");
-            System.out.println("action [48] { yybegin( YYINITIAL ); }");
-            { yybegin( YYINITIAL );
+          case 13:
+            { return new Yytoken( sym.ID, yytext(), yyline, yycolumn, yychar );
             }
             // fall through
           case 28: break;
+          case 14:
+            { yybegin( COMMENT );
+            }
+            // fall through
+          case 29: break;
+          case 15:
+            { yybegin( YYINITIAL );
+            }
+            // fall through
+          case 30: break;
           default:
             zzScanError(ZZ_NO_MATCH);
         }
@@ -824,9 +785,8 @@ class MPLexer {
   /**
    * Runs the scanner on input files.
    *
-   * This main method is the debugging routine for the scanner.
-   * It prints debugging information about each returned token to
-   * System.out until the end of file is reached, or an error occured.
+   * This is a standalone scanner, it will print any unmatched
+   * text to System.out unchanged.
    *
    * @param argv   the command line, contains the filenames to run
    *               the scanner on.
@@ -855,10 +815,7 @@ class MPLexer {
           java.io.FileInputStream stream = new java.io.FileInputStream(argv[i]);
           java.io.Reader reader = new java.io.InputStreamReader(stream, encodingName);
           scanner = new MPLexer(reader);
-          do {
-            System.out.println(scanner.next_token());
-          } while (!scanner.zzAtEOF);
-
+          while ( !scanner.zzAtEOF ) scanner.next_token();
         }
         catch (java.io.FileNotFoundException e) {
           System.out.println("File not found : \""+argv[i]+"\"");

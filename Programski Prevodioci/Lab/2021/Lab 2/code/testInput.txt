@@ -5,4 +5,10 @@ proba3 = proba1 + proba2;
 repeat (proba1)
 {
 	proba3 = proba1 + proba2;
+	proba4 = 5;
+
+	repeat(proba2)
+	{
+		proba5 = proba2 + proba1
+	}
 }
