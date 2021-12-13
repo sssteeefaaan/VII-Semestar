@@ -1,0 +1,132 @@
+// Prikaz spt info za sve vlanove ili isključivo za jedan vlan
+Switch# show spanning-tree
+Switch# show spanning-tree vlan _VLAN_ID_
+(Piše na prez ne znam da li radi) show cdp neighbours
+
+// Postgavljanje cene linka za odgovarajući port
+Switch(config-if)# spanning-tree cost _vrednost_
+Switch(config-if)# no spanning-tree cost _vrednost_
+
+// Postavljanje (umanjivanje) RootID - 2*4096
+Switch(config)# spanning-tree VLAN _Vlan_ID_ root primary
+
+// Postavljanje (umanjivanje) RootID - 1*4096
+Switch(config)# spanning-tree VLAN 1 root secondary
+
+// Postavlajnje prioriteta za određeni port (moraju biti umnošci 16, bitno da je samo manje od 128 jer je to default)
+// Ovo se menja na port-u switch-a preko kog želimo da idemo (ne sa kog idemo) kada idemo do root-a (ukoliko se smanji cena, povećava se prioritet porta)
+Switch(config-if)# spanning-tree VLAN _VLAN_ID_ port priority
+
+// Vrednosti mogu biti samo umnošci 2^12, jer je bridgeID == Bridge priority (4) + Extended System ID (12) + Mac Address (48)
+Switch(config)# spanning-tree VLAN _Vlan_ID_ _Bridge_Priority_
+
+// Podešavanja porta da je port-fast (!!!!samo prema hostovima!!!)
+Switch(config-if)# spanning-tree portfast
+
+// Omogućeno po default-u
+// Tu je ukoliko se na port-fast slučajno poveže switch (odnsono ukoliko se primi BPDI na interfejsu => isključuje port-fast)
+Switch(config-if)# spanning-tree bpduguard enable
+
+
+
+// Izbor spanning-tree mode-a
+
+	// Rapid PVST+ mod
+	Switch(config)# spanning-tree mode rapid-pvst
+
+	// Link je point-to-point (nema hub) (može iz alternate da pređe u forwaring RSTP Proposal-Agreement)
+	// Point-to-point u full-duplex mode-u povezuje dva uređaja:
+		switch-to-switch
+		switch-to-host
+	// Alternativa je shared-port koji radi u half-duplex mode-u i povezuje hub na switch (mora da prođe kroz sve faze)
+	Switch(config-if)# spanning-tree link-type point-to-point
+
+	// Resetovanje STP proces
+	Switch# clear spanning-tree detected-protocols
+	
+#################################### DEFAULT KONFIGURACIJA ##################################################
+
+Catalyst 2960
+
+Enable state 									=> Enabled on VLAN 1
+
+Spanning-tree mode								=> PVST+ (Rapid PVST+ and MSTP are disabled)
+
+Switch priority									=> 32768
+
+Spanning-tree port cost
+(configurable on a per-interface basis):
+												- 10Mb/s	[100]
+												- 100Mb/s	[19]
+												- 1000Mb/s	[4]
+
+Spanning-tree port priority						=> 128
+(configurable on a per-interface basis)
+
+Spanning-tree VLAN port priority				=> 128
+(configurable on a per-VLAN basis)
+
+Spanning-tree VLAN port cost	
+(configrable on a per-VLAN basis):
+												- 10Mb/s	[100]
+												- 100Mb/s	[19]
+												- 1000Mb/s	[4]
+
+Spanning-tree timers:
+												- Hello time:			2s
+												- Forwad-delay time:	15s
+												- Maximum-aging time:	20s
+												- Transmit hold count:	6 BPDU
+
+
+##############################################################################################################
+
+
+
+// Tipovi ST Protokola
+
+	802.1D			=> originalni STP
+	CST				=> jedna Spanning-tree instanca za sve vlanove
+	PVST+			=> Per Vlan Spanning-tree => moguće je kreirati Spanning-tree instancu za svaki vlan
+	802.1D			=> Update 802.1D original da ima PVST+
+	802.1w (RSTP)	=> Poboljšava konvergenciju
+	Rapid PVST+		=> Ciscova verzija
+	802.1s (MSTP)	=> Multiple Vlan Spanning-tree Protocol => 1 < M < Broj_VLanova => neki vlanovi mogu da dele instance ST
+	
+	
+// PVST+ protokol
+	Dobra kontrola
+	Balansiranje mreže
+	Može biti zahtevan po pitanju CPU ukoliko ima mnogo vlanova
+	Ima sporu konvergenciju
+	Extended System ID i PVST+
+		Svaka instanca mora da ima jedinstveni bridge ID
+		12 bita (za id vlana)
+	
+	
+50s za dijametar mreže 7
+
+Faze
+	Blocking 	=> 20s => može da prima BPDUs => kada se priključi na mrežu kako ne bi poremetio stanje mreže
+	Listening 	=> 15s => može da šalje svoje BPDU i tu se bira root bridge
+	Learning	=> 15s => i dalje osluškuje i uči iz povezane mreže
+	Forwarding	=>
+	Disabled	=>
+	
+Timer (sve je podesivo)
+	Hello			=> 2s					=> ukoliko je dijametar mreže veći (od 7 default) => potrebno je povećati Hello timer
+	Max age			=> 20s (10xHello) 		=>
+	Forwad delay	=> 15s	(30s total)		=> Vreme za koje je bridge u listening+learning fazi, pre tranzicije u Forwarding (15 za svaku, ukupno 30s)
+	
+				sum=> 50s default
+
+// Rapid PVST+ (Cisco verzija 802.1w)
+	Proposal - Agreement kako bi Non-designated(Alternate) port odmah krenuo u forwarding
+
+	Ovde umesto Non-designated imamo: 
+		Alternate port (DIS) => ne mora da prođe kroz sve faze, može odmah kroz designated da pređe u forwarding, jer postoji SAMO NA P2P linku!
+		Backup port
+		
+// Edge ports (spanning-tree portfast)
+	Ovde se priključuju samo hoistovi, NIKADA SVIČEVI I PORTOVI NE UČESTVUJU U SPT
+	Ne prolazi kroz faze STP-a ofc

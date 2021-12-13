@@ -1,0 +1,17 @@
+5. Termin beleške
+
+Z1:
+Za potrebe adresiranja uređaja na mreži sa slike projektovati adresnu šemu sa fiksnom maskom.
+a) Na raspolaganju su adrese 192.168.1.0/24. VLAN 10 ima 10, VLAN 20 ima 15, a VLAN 30 ima 60 uređaja.
+b) Na raspolaganju sus adrese 172.16.0.0/16. VLAN 10 ima 1000, vlan 20 ima 1500, a VLAN 30 ima 600 uređaja.
+
+Nabrojati ruting protokole koji mogu da podrže ovu adresnu šemu.
+* Ovu adresnu šemu mogu da podrže: svi ruting protokoli. (RIPv1, RIPv2, ..., OSPF, IS-IS)
+
+Z2:
+Za potrebe adresiranja uređaja na mreži sa slike projektovati adresnu šemu sa maksimalnom uštedom IP adresa. Na raspolaganju su adrese 192.168.1.0/24. VLAN 10 ima 10, VLAN 20 ima 15, a VLAN 30 ima 60 uređaja.
+
+Nabrojati ruting protokole koji mogu da podrže ovu adresnu šemu.
+* Ovu adresnu šemu mogu da podrže: RIPv2, noviji ruting proitokoli isključivo ukoliko je isključena automatska sumerizacija
+
+ 

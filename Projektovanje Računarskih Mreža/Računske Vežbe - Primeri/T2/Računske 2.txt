@@ -1,0 +1,137 @@
+Zadatak: Nacrtati šemu veze za konfiguraciiju sviča preko konzolnog porta i telnet protokola. Predvideti računar za testiranje i ruter za povezivanje sa drugim mrežama.
+a) Napisati deo konfiguracije kojom se imenuje svič i dodeljuje IP adresa za pristup sviču. Konzole sviča i rutera zaštiti od neovlašćenog pristupa i omogućiti pristup uređajima preko telneta i ssh protokola. Podesiti baner i motd na oba uređaja.
+b) Port sviča na kom se nalazi računar za testiranje mreže zaštiti po MAC adresi statički, a ostale portove zaštiti sticky tehnikom. U slučaju nedozvoljene MAC adrese na port, port isključiti. Maksimalan broj računara na portu je 4. Predvideti hub za testiranje port-security.
+
+// Prelaz u privilegovani mod (#)
+Switch>enable
+
+// Prelaz u globalni konfiguracioni mod ((config)#)
+Switch#configure terminal
+
+// Promena imena uređaja
+Switch(config)#hostname _novo_ime_
+
+// Podešavanje šifre za prelaz iz korisničkog (>) u privilegovani (#) mod
+Switch(config)#enable password _šifra_
+
+// Alternativa
+// Secret ima istu funkciju kao i password, ali se ne prikazuje u show [running/startup]-config dijalogu
+// Switch(config)#enable secret _šifra_
+
+// Prelaz na konfiguraciju konzole (samo jedna konzola pa je con 0)
+Switch(config)#line con 0
+
+// Podešavanje šifre za sam pristup konzoli (ne dozvoljava ni korisnički mod(>))
+Switch(config-line)#password _šifra_
+
+// Omogućavanje šifre za pristup korisničkom modu (>)
+Switch(config-line)#login
+
+// Sakriti šifre
+Switch(config)#service password-encryption
+
+// Uklanjanje bilo kog podešavanja
+//Switch(mode)no naredba
+
+// Izvršiti naredbu iz bilo kog "slabijeg" (down_mode) moda dok se nalazimo u "jačem" (up_mode) modu
+//Switch(up_mode)do down_mode_komanda
+
+// Prikaz trenutne konfiguracije
+Switch#show running-config
+
+######## Konfiguracija Banner/MOTD-a ########
+
+// Postavljanje "poruke dana" message of the day
+Switch(config)#banner motd #_sadržaj_poruke_može_u_više_redova_mora_da_bude_omeđen_tarabama_#
+
+############################################
+
+######## Konfiguracija IP adrese na switch-u ########
+
+// Podešava se u okviru posebnog interfejsa koji se naziva vlan
+// Po default-u, svi portovi (interfejsi) pripadaju vlan grupi 1, pa tom "interfejsu" pristupamo
+Switch(config)#interface vlan 1
+
+// Podešavanje IP adrese i subnet maske
+Switch(config-if)#ip address _ip_adresa_ _subnet_maska_
+
+// Omogućavanje intefejsa
+Switch(config-if)#no shutdown
+
+// Prikaz konfigurisanih interfejsa (IP adresa)
+Switch#show ip interface brief
+
+############################################
+
+######## Konfiguracija Telnet/SSH-a ########
+
+//Postavljanje domain-name-a (Koristi se samo za rsa)
+Switch(config)#ip domain-name _ime_domena_
+
+// Generisanje RSA potrebnog za SSH
+Switch(config)#crypto key generate rsa
+// 1024 modul
+
+// Pristup virtualnom teletype line-u (maksimalno 16 [0-15])
+Switch(config)#line vty 0 15
+
+// Postavljanje šifre za odabrane line-ove
+Switch(config-line)#password _šifra_
+
+// Omogućavanje line-a
+Switch(config-line)#login
+
+// Odabir transportnog protokola za input (kontrolu)
+Switch(config-line)#transport input _param_
+// _param_ može da bude:
+//	all     All protocols
+//	none    No protocols
+//	ssh     TCP/IP SSH protocol (port 23)
+//	telnet  TCP/IP Telnet protocol (port 22)
+
+!*!*!*!*!*!*!*!*! Kako bi se pristupilo uređaju uz pomoć telnet/ssh-a NEOPHODNO je setovati password/secret za prelaz u privilegovani mod !*!*!*!*!*!*!*!*!
+
+// Pristup pomoću telnet-a
+cmd>telnet _ip_adresa_
+
+// Pristup pomoću ssh-a
+cmd>ssh -l _random_username_ _ip_adresa_
+
+############################################
+
+
+######## Zaštita port switch-a po MAC adresi ########
+
+// Prikaz tabele naučenih MAC adresa (ARP)
+Switch#show mac-address-table
+
+// Prikaz tabele za port security
+Switch#show port-security
+
+// Omogućavanje port-security
+Switch(config-if)#switchport port-security
+
+// Promena moda na interfejsu na kom podešavamo port-security
+Switch(config-if)#switchport mode _mod_
+_mod_ može biti:
+	=> access (kako bi konfigurisali port-security)
+	=> dynamic
+	=> trunk
+
+// Dodavanje MAC adrese
+Switch(config-if)#switchport port-security mac-address [_param_]
+_param_ može biti:
+	=> MAC adresa u formatu H.H.H za statičko dodavanje 
+	=> sticky - sve adrese koje dinamički nauči upisuje statički (potreban je maksimum)
+
+// Podešavanje maksimalnog broja MAC adresa koje mogu da se nauče
+Switch(config-if)#switchport port-security maximum _vrednost_
+
+// Akcija nakon prekršaja
+Switch(config-if)#switchport port-security violation _akcija_
+_akcija_ može biti: 
+	=> shutdown - port(interfejs) se isključuje
+	=> restrict - nema saobraćaja za nenaučene MAC adrese
+	=> protect -
+############################################
+
