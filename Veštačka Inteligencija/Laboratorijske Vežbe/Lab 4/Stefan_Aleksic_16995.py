@@ -1,9 +1,6 @@
 # Implementirati Backtracking traženje u kombinaciji sa Forward checking tehnikom i LCV heuristikom za bojenje čvorova grafa sa tri boje (crvena, zelena i plava) tako da ni jedna dva susedna čvora nemaju istu boju.
 
-from display import display
-
-
-def backtracking_with_LCV(graph, colors, maxChange=100):
+def backtracking_with_LCV(graph, colors, maxChange=50):
     state = {
         'prev': None,
         'colored': set(),
@@ -65,7 +62,6 @@ def main():
     result = backtracking_with_LCV(graph, colors)
     if result:
         print("Result: ", result['colored'])
-        display(graph, result['colored'])
     else:
         print("Max depth reached!")
 

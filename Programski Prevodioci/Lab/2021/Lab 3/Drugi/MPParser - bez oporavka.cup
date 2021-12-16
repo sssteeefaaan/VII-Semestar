@@ -1,0 +1,213 @@
+import java_cup.runtime.*;
+import java.io.*;
+
+parser code {:
+    public static void main( String[] args )
+    {
+        try
+        {
+            FileReader file = new FileReader( args[0] );
+            Scanner scanner = new MPLexer( file );
+            MPParser parser = new MPParser( scanner );
+			Symbol syntax_tree = parser.parse();
+			System.out.println(syntax_tree);
+			System.out.println(syntax_tree.value);
+        }
+        catch( Exception e )
+        {
+            e.printStackTrace();
+        }
+    }
+:};
+
+// Terminali
+terminal STRATEGY_BEGIN, STRATEGY_END, DECLARATION_BEGIN, DECLARATION_END, ID, SEMICOLON, INT, DOUBLE, STRING, BOOL, CHAR;
+terminal REPEAT, OPEN_BRACKET, CLOSE_BRACKET, OPEN_CURLY_BRACKET, CLOSE_CURLY_BRACKET, CONST, LESS, EQUAL, GREATER, ASSIGN;
+terminal NUM_INSTANCES, SERVICE_BEGIN, SERVICE_END, SERVICE_NAME, EXECUTED_BY, IF, THEN, SCALE, REDEPLOY_ON, OPTIMIZE, PLUS, MULTIPLY;
+
+// Neterminali
+non terminal Strategy, Body, Declarations, Statements, ServiceList, VariableDeclaration, Variable, Type, Statement, Assignment, WhileStatement;
+non terminal RelExpression, RelOp, Term, Expression, Instances, ServiceDef, ServiceName, Allocation, AdaptationRule, Condition, Response;
+
+
+// Gramatika
+
+precedence left  PLUS;
+precedence left MULTIPLY;
+
+start with Strategy;
+
+Strategy ::= STRATEGY_BEGIN Body STRATEGY_END
+{:
+    System.out.println("Smena 1 => Strategy!");
+:};
+
+Body ::= Declarations Statements ServiceList
+{:
+    System.out.println("Smena 2 => Body!");
+:};
+
+Declarations ::= DECLARATION_BEGIN VariableDeclaration DECLARATION_END
+{:
+    System.out.println("Smena 3 => Declarations!");
+:};
+
+VariableDeclaration ::= VariableDeclaration SEMICOLON Variable
+{:
+    System.out.println("Smena 4 => VariableDeclaration!");
+:}
+|   Variable
+{:
+    System.out.println("Smena 5 => VariableDeclaration!");
+:};
+
+Variable ::= Type ID:id SEMICOLON
+{:
+    System.out.println("Smena 6 => Variable '" + id + "'!");
+:};
+
+Type ::= INT
+{:
+    System.out.println("Smena 7 => Type int!");
+:}
+| DOUBLE
+{:
+    System.out.println("Smena 8 => Type double!");
+:}
+| STRING
+{:
+    System.out.println("Smena 9 => Type string!");
+:}
+| BOOL
+{:
+    System.out.println("Smena 10 => Type bool!");
+:}
+| CHAR
+{:
+    System.out.println("Smena 11 => Type char!");
+:};
+
+Statements ::= Statements SEMICOLON Statement
+{:
+    System.out.println("Smena 12 => Statements!");
+:}
+| Statement
+{:
+    System.out.println("Smena 13 => Statements!");
+:};
+
+Statement ::= Assignment
+{:
+    System.out.println("Smena 14 => Statement!");
+:}
+| WhileStatement
+{:
+    System.out.println("Smena 15 => Statement!");
+:};
+
+WhileStatement ::= REPEAT OPEN_BRACKET Term CLOSE_BRACKET OPEN_CURLY_BRACKET Statements CLOSE_CURLY_BRACKET
+{:
+    System.out.println("Smena 16 => WhileStatement!");
+:};
+
+RelExpression ::= Term RelOp Term
+{:
+    System.out.println("Smena 17 => RelExpression!");
+:}
+| Term
+{:
+    System.out.println("Smena 18 => RelExpression!");
+:};
+
+Term ::= ID:id
+{:
+    System.out.println("Smena 19 => Term ID '" + id + "'!");
+:}
+| CONST:c
+{:
+    System.out.println("Smena 20 => Term CONST '" + c + "'!");
+:};
+
+RelOp ::= LESS
+{:
+    System.out.println("Smena 21 => RelOp less!");
+:}
+| EQUAL
+{:
+    System.out.println("Smena 22 => RelOp equal!");
+:}
+| GREATER
+{:
+    System.out.println("Smena 23 => RelOp greater!");
+:};
+
+Assignment ::= ID:id ASSIGN Expression
+{:
+    System.out.println("Smena 24 => Assignment to '" + id + "'!");
+:};
+
+Instances ::= NUM_INSTANCES Term
+{:
+    System.out.println("Smena 25 => Instances!");
+:};
+
+ServiceList ::= ServiceList SEMICOLON ServiceDef
+{:
+    System.out.println("Smena 26 => ServiceList!");
+:}
+| ServiceDef
+{:
+    System.out.println("Smena 27 => ServiceList!");
+:};
+
+ServiceDef  ::= SERVICE_BEGIN ServiceName Instances Allocation AdaptationRule SERVICE_END
+{:
+    System.out.println("Smena 28 => ServiceDef!");
+:};
+
+ServiceName ::= SERVICE_NAME ID:id
+{:
+    System.out.println("Smena 29 => ServiceName '" + id + "'!");
+:};
+
+Allocation ::= EXECUTED_BY ID:id
+{:
+    System.out.println("Smena 30 => Allocation executed by '" + id + "'!");
+:};
+
+AdaptationRule ::= IF Condition THEN Response
+{:
+    System.out.println("Smena 31 => AdaptationRule!");
+:};
+
+Condition ::= RelExpression
+{:
+    System.out.println("Smena 32 => Condition!");
+:};
+
+Response ::= SCALE Term
+{:
+    System.out.println("Smena 33 => Response scale!");
+:}
+| REDEPLOY_ON ID:id
+{:
+    System.out.println("Smena 34 => Response redeploy on '" + id + "'!");
+:}
+| OPTIMIZE
+{:
+    System.out.println("Smena 35 => Response optimize!");
+:};
+
+Expression ::= Expression PLUS Term
+{:
+    System.out.println("Smena 36 => Expression add!");
+:}
+| Expression MULTIPLY Term
+{:
+    System.out.println("Smena 37 => Expression multiply!");
+:}
+| Term
+{:
+    System.out.println("Smena 38 => Expression!");
+:};
+

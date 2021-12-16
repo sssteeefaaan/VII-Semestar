@@ -1,0 +1,415 @@
+import java_cup.runtime.*;
+import java.io.*;
+
+parser code {:
+
+	public int errorNumber = 0;
+
+    public static void main( String[] args )
+    {
+        try
+        {
+            FileReader file = new FileReader( args[0] );
+            Scanner scanner = new MPLexer( file );
+            MPParserWithHelp parser = new MPParserWithHelp( scanner );
+			parser.parse();
+			
+			if ( parser.errorNumber == 0)
+				System.out.println( "Analiza je zavrsena. U kodu nema sintaksnih gresaka!" );
+			else
+				System.out.println( "Analiza je zavrsena. Broj sintaksnih gresaka: " + parser.errorNumber );
+        }
+        catch( Exception e )
+        {
+            e.printStackTrace();
+        }
+    }
+
+    public void syntax_error(Symbol current_token)
+    {
+
+    }
+
+    public void report_error(String message, Object info)
+    {
+        System.out.println( message );
+    }
+
+    public int getLine()
+    {
+        return ( ( MPLexer ) getScanner() ).getLine();
+    }
+:};
+
+// Terminali
+terminal STRATEGY_BEGIN, STRATEGY_END, DECLARATION_BEGIN, DECLARATION_END, ID, SEMICOLON, INT, DOUBLE, STRING, BOOL, CHAR;
+terminal REPEAT, OPEN_BRACKET, CLOSE_BRACKET, OPEN_CURLY_BRACKET, CLOSE_CURLY_BRACKET, CONST, LESS, EQUAL, GREATER, ASSIGN;
+terminal NUM_INSTANCES, SERVICE_BEGIN, SERVICE_END, SERVICE_NAME, EXECUTED_BY, IF, THEN, SCALE, REDEPLOY_ON, OPTIMIZE, PLUS, MULTIPLY;
+
+// Neterminali
+non terminal Strategy, Body, Declarations, Statements, ServiceList, VariableDeclaration, Variable, Type, Statement, Assignment, WhileStatement;
+non terminal RelExpression, RelOp, Term, Expression, Instances, ServiceDef, ServiceName, Allocation, AdaptationRule, Condition, Response;
+
+
+// Gramatika
+
+precedence nonassoc error;
+precedence left  PLUS;
+precedence left MULTIPLY;
+
+start with Strategy;
+
+Strategy ::= STRATEGY_BEGIN Body STRATEGY_END
+{:
+    System.out.println("Smena 1 => Strategy!");
+:}
+| STRATEGY_BEGIN Body error
+{:
+    System.out.println("Nedostaje ~strategy u liniji " + parser.getLine() + "!");
+	parser.errorNumber++;
+:}
+| STRATEGY_BEGIN error
+{:
+    System.out.println("Nedostaje body u liniji " + parser.getLine() + "!");
+	parser.errorNumber++;
+:};
+
+Body ::= Declarations Statements ServiceList
+{:
+    System.out.println("Smena 2 => Body!");
+:}
+| Declarations Statements error
+{:
+    System.out.println("Nedostaje lista serivisa u liniji " + parser.getLine() + "!");
+	parser.errorNumber++;
+:}
+| Declarations error
+{:
+    System.out.println("Nedostaju dodele u liniji " + parser.getLine() + "!");
+	parser.errorNumber++;
+:};
+
+Declarations ::= DECLARATION_BEGIN VariableDeclaration DECLARATION_END
+{:
+    System.out.println("Smena 3 => Declarations!");
+:}
+| DECLARATION_BEGIN error
+{:
+    System.out.println("Nedostaju deklaracije promenljivih u liniji " + parser.getLine() + "!");
+	parser.errorNumber++;
+:};
+
+VariableDeclaration ::= VariableDeclaration SEMICOLON Variable
+{:
+    System.out.println("Smena 4 => VariableDeclaration!");
+:}
+| VariableDeclaration SEMICOLON error
+{:
+    System.out.println("Nedostaje promenljiva u liniji " + parser.getLine() + "!");
+	parser.errorNumber++;
+:}
+| Variable
+{:
+    System.out.println("Smena 5 => VariableDeclaration!");
+:};
+
+Variable ::= Type ID:id SEMICOLON
+{:
+    System.out.println("Smena 6 => Variable '" + id + "'!");
+:}
+| Type ID error
+{:
+    System.out.println("Nedostaje ; u liniji " + parser.getLine() + "!");
+	parser.errorNumber++;
+:}
+| Type error
+{:
+    System.out.println("Nedostaje identifikator u liniji " + parser.getLine() + "!");
+	parser.errorNumber++;
+:};
+
+Type ::= INT
+{:
+    System.out.println("Smena 7 => Type int!");
+:}
+| DOUBLE
+{:
+    System.out.println("Smena 8 => Type double!");
+:}
+| STRING
+{:
+    System.out.println("Smena 9 => Type string!");
+:}
+| BOOL
+{:
+    System.out.println("Smena 10 => Type bool!");
+:}
+| CHAR
+{:
+    System.out.println("Smena 11 => Type char!");
+:};
+
+Statements ::= Statements SEMICOLON Statement
+{:
+    System.out.println("Smena 12 => Statements!");
+:}
+| Statements SEMICOLON error
+{:
+    System.out.println("Nedostaje dodela u liniji " + parser.getLine() + "!");
+	parser.errorNumber++;
+:}
+| Statement
+{:
+    System.out.println("Smena 13 => Statements!");
+:};
+
+Statement ::= Assignment
+{:
+    System.out.println("Smena 14 => Statement!");
+:}
+| WhileStatement
+{:
+    System.out.println("Smena 15 => Statement!");
+:};
+
+WhileStatement ::= REPEAT OPEN_BRACKET Term CLOSE_BRACKET OPEN_CURLY_BRACKET Statements CLOSE_CURLY_BRACKET
+{:
+    System.out.println("Smena 16 => WhileStatement!");
+:}
+| REPEAT OPEN_BRACKET Term CLOSE_BRACKET OPEN_CURLY_BRACKET Statements error
+{:
+    System.out.println("Nedostaju '}' u liniji " + parser.getLine() + "!");
+	parser.errorNumber++;
+:}
+| REPEAT OPEN_BRACKET Term CLOSE_BRACKET OPEN_CURLY_BRACKET error
+{:
+    System.out.println("Nepravilne dodele u liniji " + parser.getLine() + "!");
+	parser.errorNumber++;
+:}
+| REPEAT OPEN_BRACKET Term CLOSE_BRACKET error
+{:
+    System.out.println("Nedostaje '{' u liniji " + parser.getLine() + "!");
+	parser.errorNumber++;
+:}
+| REPEAT OPEN_BRACKET Term error
+{:
+    System.out.println("Nedostaje ')' u liniji " + parser.getLine() + "!");
+	parser.errorNumber++;
+:}
+| REPEAT OPEN_BRACKET error
+{:
+    System.out.println("Nepravilno definisan term u liniji " + parser.getLine() + "!");
+	parser.errorNumber++;
+:}
+| REPEAT error
+{:
+    System.out.println("Nedostaje '(' u liniji " + parser.getLine() + "!");
+	parser.errorNumber++;
+:};
+
+RelExpression ::= Term RelOp Term
+{:
+    System.out.println("Smena 17 => RelExpression!");
+:}
+| Term RelOp error
+{:
+    System.out.println("Nedostaje term u liniji " + parser.getLine() + "!");
+	parser.errorNumber++;
+:}
+| Term
+{:
+    System.out.println("Smena 18 => RelExpression!");
+:};
+
+Term ::= ID:id
+{:
+    System.out.println("Smena 19 => Term ID '" + id + "'!");
+:}
+| CONST:c
+{:
+    System.out.println("Smena 20 => Term CONST '" + c + "'!");
+:};
+
+RelOp ::= LESS
+{:
+    System.out.println("Smena 21 => RelOp less!");
+:}
+| EQUAL
+{:
+    System.out.println("Smena 22 => RelOp equal!");
+:}
+| GREATER
+{:
+    System.out.println("Smena 23 => RelOp greater!");
+:};
+
+Assignment ::= ID:id ASSIGN Expression
+{:
+    System.out.println("Smena 24 => Assignment to '" + id + "'!");
+:}
+| ID ASSIGN error
+{:
+    System.out.println("Nedostaje expression u liniji " + parser.getLine() + "!");
+	parser.errorNumber++;
+:}
+| ID error
+{:
+    System.out.println("Nedostaje '=' u liniji " + parser.getLine() + "!");
+	parser.errorNumber++;
+:};
+
+Instances ::= NUM_INSTANCES Term
+{:
+    System.out.println("Smena 25 => Instances!");
+:}
+| NUM_INSTANCES error
+{:
+    System.out.println("Nepravilno definisana instanca  u liniji " + parser.getLine() + "!");
+	parser.errorNumber++;
+:};
+
+ServiceList ::= ServiceList SEMICOLON ServiceDef
+{:
+    System.out.println("Smena 26 => ServiceList!");
+:}
+| ServiceList SEMICOLON error
+{:
+    System.out.println("Nepravilna definicija servisa u liniji " + parser.getLine() + "!");
+	parser.errorNumber++;
+:}
+| ServiceList error
+{:
+    System.out.println("Nedostaje ';' u liniji " + parser.getLine() + "!");
+	parser.errorNumber++;
+:}
+| ServiceDef
+{:
+    System.out.println("Smena 27 => ServiceList!");
+:};
+
+ServiceDef  ::= SERVICE_BEGIN ServiceName Instances Allocation AdaptationRule SERVICE_END
+{:
+    System.out.println("Smena 28 => ServiceDef!");
+:}
+| SERVICE_BEGIN ServiceName Instances Allocation AdaptationRule error
+{:
+    System.out.println("Nedostaje '~service' u liniji " + parser.getLine() + "!");
+	parser.errorNumber++;
+:}
+| SERVICE_BEGIN ServiceName Instances Allocation error
+{:
+    System.out.println("Nepravilno adaptaciono pravilo u liniji " + parser.getLine() + "!");
+	parser.errorNumber++;
+:}
+| SERVICE_BEGIN ServiceName Instances error
+{:
+    System.out.println("Nepravilna alokacija  u liniji " + parser.getLine() + "!");
+	parser.errorNumber++;
+:}
+| SERVICE_BEGIN ServiceName error
+{:
+    System.out.println("Nepravilna instanca u liniji " + parser.getLine() + "!");
+	parser.errorNumber++;
+:}
+| SERVICE_BEGIN error
+{:
+    System.out.println("Nedostaje nepravilna definicija imena servisa u liniji " + parser.getLine() + "!");
+	parser.errorNumber++;
+:};
+
+ServiceName ::= SERVICE_NAME ID:id
+{:
+    System.out.println("Smena 29 => ServiceName '" + id + "'!");
+:}
+| SERVICE_NAME error
+{:
+    System.out.println("Nedostaje identifikator u liniji " + parser.getLine() + "!");
+	parser.errorNumber++;
+:};
+
+Allocation ::= EXECUTED_BY ID:id
+{:
+    System.out.println("Smena 30 => Allocation executed by '" + id + "'!");
+:}
+| EXECUTED_BY error
+{:
+    System.out.println("Nedostaje identifikator u liniji " + parser.getLine() + "!");
+	parser.errorNumber++;
+:};
+
+AdaptationRule ::= IF Condition THEN Response
+{:
+    System.out.println("Smena 31 => AdaptationRule!");
+:}
+| IF Condition THEN error
+{:
+    System.out.println("Nedostaje response u liniji " + parser.getLine() + "!");
+	parser.errorNumber++;
+:}
+| IF Condition error
+{:
+    System.out.println("Nedostaje kljucna rec 'then' u liniji " + parser.getLine() + "!");
+	parser.errorNumber++;
+:}
+| IF error
+{:
+    System.out.println("Nepravilan uslov u liniji " + parser.getLine() + "!");
+	parser.errorNumber++;
+:};
+
+Condition ::= RelExpression
+{:
+    System.out.println("Smena 32 => Condition!");
+:};
+
+Response ::= SCALE Term
+{:
+    System.out.println("Smena 33 => Response scale!");
+:}
+| SCALE error
+{:
+    System.out.println("Nepravilno definisan term u liniji " + parser.getLine() + "!");
+	parser.errorNumber++;
+:}
+| REDEPLOY_ON ID:id
+{:
+    System.out.println("Smena 34 => Response redeploy on '" + id + "'!");
+:}
+| REDEPLOY_ON error
+{:
+    System.out.println("Nedostaje identifikator u liniji " + parser.getLine() + "!");
+	parser.errorNumber++;
+:}
+| OPTIMIZE
+{:
+    System.out.println("Smena 35 => Response optimize!");
+:};
+
+Expression ::= Expression PLUS Term
+{:
+    System.out.println("Smena 36 => Expression add!");
+:}
+| Expression MULTIPLY Term
+{:
+    System.out.println("Smena 36 => Expression add!");
+:}
+| Expression PLUS error
+{:
+    System.out.println("Nedostaje drugi operand u liniji " + parser.getLine() + "!");
+	parser.errorNumber++;
+:}
+| Expression MULTIPLY error
+{:
+    System.out.println("Nedostaje drugi operand u liniji " + parser.getLine() + "!");
+	parser.errorNumber++;
+:}
+| Expression error
+{:
+    System.out.println("Ocekuje se operator u liniji " + parser.getLine() + "!");
+	parser.errorNumber++;
+:}
+| Term
+{:
+    System.out.println("Smena 38 => Expression!");
+:};
+
