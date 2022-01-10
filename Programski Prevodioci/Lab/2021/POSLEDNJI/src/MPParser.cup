@@ -1,0 +1,407 @@
+// Import section
+
+import java_cup.runtime.*;
+import ast.*;
+import java.io.*;
+import SymbolTable.*;
+import java.util.ArrayList;
+
+parser code {:
+
+   public int errNo = 0;
+   public int warnNo = 0;
+   
+   SymbolTable symbolTable;
+   
+   public static void main( String[] args )
+   {
+      try
+	  {
+		   FileReader file = new FileReader( args[0] );
+		   Scanner scanner = new MPLexer( file );
+		   MPParser parser = new MPParser( scanner );
+		   parser.parse();
+		   parser.checkWarnings();
+		   if ( parser.errNo == 0 && parser.warnNo == 0 )
+		      System.out.println( "Analiza zavrsena. U kodu nema gresaka." );
+		   else
+		      System.out.println( "Analiza zavrsena. Broj gresaka: " + parser.errNo 
+		         + " Broj upozorenja: " + parser.warnNo );
+	  }
+	  catch( Exception e )
+	  {
+		   System.out.println(e);
+	  }
+   }
+   
+   public void checkWarnings()
+   {
+      SymbolNode current = symbolTable.getVariables();
+      while ( current != null )
+      {
+      	Variable var = ( Variable ) current;
+      	if ( var.last_def != -1 && var.last_use == -1 )
+      	{
+      		System.out.println( "Upozorenje: Promenljiva " + var.name + 
+      			" je deklarisana, ali se nigde ne koristi." );
+      		warnNo++;
+      	}
+      	else if ( var.last_def > var.last_use )
+      	{
+      		System.out.println( "Upozorenje: Vrednost dodeljena promeljivoj " +
+      		    var.name + " u liniji " + var.last_def + " se nigde ne koristi." );
+      		warnNo++;
+      	}
+      	current = current.next;
+     }
+   }
+   
+   public void syntax_error(Symbol cur_token)
+   {
+   	  
+   }
+   
+   public void report_error(String message, Object info)
+   {
+   	   System.out.print( message );
+   }
+   
+   public int getLine()
+   {
+   	  return (( MPLexer) getScanner()).getLine();
+   }
+:};
+
+init with {:
+	symbolTable = new SymbolTable();
+:};
+
+// Terminali
+terminal STRATEGY_BEGIN, STRATEGY_END, DECLARATION_BEGIN, DECLARATION_END, SEMICOLON, INT, DOUBLE, STRING, BOOL, CHAR;
+terminal REPEAT, OPEN_BRACKET, CLOSE_BRACKET, OPEN_CURLY_BRACKET, CLOSE_CURLY_BRACKET, LESS, EQUAL, GREATER, ASSIGN;
+terminal NUM_INSTANCES, SERVICE_BEGIN, SERVICE_END, SERVICE_NAME, EXECUTED_BY, IF, THEN, SCALE, REDEPLOY_ON, OPTIMIZE, PLUS, MULTIPLY;
+terminal String ID;
+terminal Integer INTCONST;
+terminal Double DOUBLECONST;
+terminal Boolean BOOLCONST;
+terminal Character CHARCONST;
+terminal String STRINGCONST;
+
+
+// Neterminali
+non terminal Body Strategy, Body, Declarations;
+non terminal VariableDeclaration, Variable;
+non terminal Instances, ServiceName, Allocation, Response;
+non terminal Type Type;
+non terminal String RelOp;
+non terminal Constant CONST;
+non terminal AdaptationRule AdaptationRule;
+non terminal Assignment Assignment;
+non terminal Term Term;
+non terminal Expression Expression;
+non terminal ServiceDef ServiceDef;
+non terminal WhileStatement WhileStatement;
+non terminal Statement Statement;
+non terminal RelExpression RelExpression, Condition;
+non terminal ArrayList Statements, ServiceList;
+
+
+// Gramatika
+
+precedence nonassoc error;
+precedence left  PLUS;
+precedence left MULTIPLY;
+
+start with Strategy;
+
+Strategy ::= STRATEGY_BEGIN Body:b STRATEGY_END
+            {:
+                RESULT = b;
+            :}
+			;
+
+Body ::= Declarations Statements:ss ServiceList:sl
+		{:
+			RESULT = new Body(ss, sl);
+		:}
+        ;
+
+Declarations ::= DECLARATION_BEGIN VariableDeclaration DECLARATION_END
+        ;
+
+VariableDeclaration ::= VariableDeclaration SEMICOLON Variable
+        | Variable
+        ;
+
+Variable ::= Type:t ID:id SEMICOLON
+        {:			   
+            if ( ! parser.symbolTable.addVar( id, t ) )
+            {
+                System.out.println( "Greska u liniji " + parser.getLine() + ": " + 
+                "Promenljiva " + id + " je vec deklarisana." );
+                parser.errNo++;
+            }
+        :}
+        ;
+
+Type ::= INT
+        {:
+           RESULT = parser.symbolTable.getType( "int" );
+        :}
+        | DOUBLE
+        {:
+           RESULT = parser.symbolTable.getType( "double" );
+        :}
+        | STRING
+        {:
+           RESULT = parser.symbolTable.getType( "string" );
+        :}
+        | BOOL
+        {:
+           RESULT = parser.symbolTable.getType( "bool" );
+        :}
+        | CHAR
+        {:
+           RESULT = parser.symbolTable.getType( "char" );
+        :};
+
+Statements ::= Statements:ss SEMICOLON Statement:s
+        {:
+            ss.add(s);
+            RESULT = ss;
+        :}
+        | Statement : s
+        {:
+            RESULT = new ArrayList<Statement>();
+            RESULT.add(s);
+        :}
+        ;
+
+Statement ::= Assignment :a
+        {:
+            RESULT = a;
+        :}
+        | WhileStatement:ws
+        {:
+            RESULT = ws;
+        :};
+
+WhileStatement ::= REPEAT OPEN_BRACKET Term:t CLOSE_BRACKET OPEN_CURLY_BRACKET Statements:ss CLOSE_CURLY_BRACKET
+        {:
+            RESULT = new WhileStatement(t, ss);
+        :}
+        ;
+
+RelExpression ::= Term:t1 RelOp:op Term:t2
+        {:
+            if(op == "less")
+                RESULT = new LessRelExp(t1, t2);
+            else if(op == "equal")
+                RESULT = new EqualRelExp(t1, t2);
+            else if (op == "greater")
+                RESULT = new GreaterRelExp(t1, t2);
+        :}
+        | Term:t
+        {:
+            RESULT = new RelExpression(t);
+        :};
+
+Term ::= ID:id
+        {:
+            Variable var = parser.symbolTable.getVar( id );
+            if ( var == null )
+            {
+                System.out.println( "Greska u liniji " + parser.getLine() + 
+                    ": promenljiva " + id + " nije deklarisana.");
+                parser.errNo++;
+            }
+            else 
+            {
+                RESULT = new VariableTerm(var);
+                if ( var.last_def == -1 )
+                {
+                    System.out.println( "Grreska u liniji " + parser.getLine() + 
+                        ": promenljiva " + id + " nije inicijalizovana.");
+                    parser.errNo++;
+                }
+                var.last_use = parser.getLine();
+            }
+        :}
+        | CONST:c
+        {:
+            RESULT = new ConstantTerm(c);
+        :};
+
+CONST ::= INTCONST:c
+        {:
+            RESULT = new Constant( parser.symbolTable.getType( "int" ), c );
+        :}
+        | DOUBLECONST:c
+        {:
+            RESULT = new Constant( parser.symbolTable.getType( "double" ), c );
+        :}
+        | BOOLCONST:c
+        {:
+            RESULT = new Constant( parser.symbolTable.getType( "bool" ), c );
+        :}
+        | CHARCONST:c
+        {:
+            RESULT = new Constant( parser.symbolTable.getType( "char" ), c );
+        :}
+        | STRINGCONST:c
+        {:
+            RESULT = new Constant( parser.symbolTable.getType( "string" ), c );
+        :};
+
+RelOp ::= LESS
+        {:
+            RESULT = "less";
+        :}
+        | EQUAL
+        {:
+            RESULT = "equal";
+        :}
+        | GREATER
+        {:
+            RESULT = "greater";
+        :}
+        ;
+
+Assignment ::= ID:id ASSIGN Expression: e
+        {:
+            Variable var = parser.symbolTable.getVar( id );
+            if ( var == null )
+            {
+                System.out.println( "Greska u liniji " + parser.getLine() + 
+                    ": promenljiva " + id + " nije deklarisana.");
+                parser.errNo++;
+            }
+            else 
+            {
+                var.last_def = parser.getLine();
+                RESULT = new Assignment(var, e);
+            }
+        :}
+        ;
+
+Instances ::= NUM_INSTANCES Term:t
+        {:
+        :}
+        ;
+
+ServiceList ::= ServiceList:sl SEMICOLON ServiceDef:sd
+        {:
+            sl.add(sd);
+            RESULT = sl;
+        :}
+        | ServiceDef:sd
+        {:
+            RESULT = new ArrayList<ServiceDef>();
+            RESULT.add(sd);
+        :}
+        ;
+
+ServiceDef  ::= SERVICE_BEGIN ServiceName Instances Allocation AdaptationRule:a SERVICE_END
+		{:
+			RESULT = new ServiceDef(a);
+		:}
+        ;
+
+ServiceName ::= SERVICE_NAME ID:id
+        {:
+            Variable var = parser.symbolTable.getVar( id );
+            if ( var == null )
+            {
+                System.out.println( "Greska u liniji " + parser.getLine() + 
+                    ": promenljiva " + id + " nije deklarisana.");
+                parser.errNo++;
+            }
+            else 
+            {
+                if ( var.type.tkind != Type.CHAR )
+                {
+                    System.out.println( "Greska u liniji " + parser.getLine() + 
+                        ": Ime servisa mora biti tipa char." );
+                    parser.errNo++;
+                }
+                else{
+                    var.last_use = parser.getLine();
+                }
+            }
+        :}
+        ;
+
+Allocation ::= EXECUTED_BY ID:id
+        {:
+            Variable var = parser.symbolTable.getVar( id );
+            if ( var == null )
+            {
+                System.out.println( "Greska u liniji " + parser.getLine() + 
+                    ": promenljiva " + id + " nije deklarisana.");
+                parser.errNo++;
+            }
+            else 
+            {
+                if ( var.type.tkind != Type.STRING )
+                {
+                    System.out.println( "Greska u liniji " + parser.getLine() + 
+                        ": Identifikator servera mora biti tipa string." );
+                    parser.errNo++;
+                }
+                else{
+                    var.last_use = parser.getLine();
+                }
+            }
+        :};
+
+AdaptationRule ::= IF Condition:c THEN Response
+        {:
+            RESULT = new AdaptationRule(c);
+        :};
+
+Condition ::= RelExpression:rExp
+        {:
+            RESULT = rExp;
+        :};
+
+Response ::= SCALE Term:t
+        {:
+        :}
+        | REDEPLOY_ON ID:id
+        {:
+            Variable var = parser.symbolTable.getVar( id );
+            if ( var == null )
+            {
+                System.out.println( "Greska u liniji " + parser.getLine() + 
+                    ": promenljiva " + id + " nije deklarisana.");
+                parser.errNo++;
+            }
+            else 
+            {
+                if ( var.type.tkind != Type.STRING )
+                {
+                    System.out.println( "Greska u liniji " + parser.getLine() + 
+                        ": Identifikator servera mora biti tipa string." );
+                    parser.errNo++;
+                }
+                else{
+                    var.last_use = parser.getLine();
+                }
+            }
+        :}
+        | OPTIMIZE
+        ;
+
+Expression ::= Expression:e PLUS Term:t
+        {:
+            RESULT = new Sum(e, t);
+        :}
+        | Expression:e MULTIPLY Term:t
+        {:
+            RESULT = new Product(e, t);
+        :}
+        | Term:t
+        {:
+            RESULT = new Expression(t);
+        :};
+

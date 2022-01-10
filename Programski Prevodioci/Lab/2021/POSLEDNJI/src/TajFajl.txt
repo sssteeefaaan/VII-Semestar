@@ -1,0 +1,76 @@
+-----------------------------------
+
+Adaptation rule
+
+    IMC<Condition>
+    Load_Mem R1, temp
+    JumpIfNotZero R1, lab
+    IMC<Response>
+lab:
+
+-----------------------------------
+
+Assignment
+
+    IMC<Right>
+    Load_Mem R1, temp
+    Store R1, ID
+
+-----------------------------------
+
+ConstantTerm
+
+    Load_Const R1, CONST
+    
+-----------------------------------
+
+
+-----------------------------------
+
+VariableTerm
+
+    Load_Mem R1, ID
+
+-----------------------------------
+
+
+-----------------------------------
+
+LessRelExp      -   relOp = Compare_less
+EqualRelExp     -   relOp = Compare_equal
+GreaterRelExp   -   relOp = Compare_greater
+RelExpression
+
+    IMC<Right>
+    Load_Mem R2, rightMem
+
+    // uslov ukoliko left postoji
+    IMC<Left>
+    Load_Mem R1, leftMem
+    relOp R1, R2
+    Store R1, result
+    // else
+    Store R2, result
+
+-----------------------------------
+
+
+-----------------------------------
+
+WhileStatement
+
+    IMC<Term>
+    Load_Mem R1, termMem
+lab1:
+    JumpIfZero R1, lab2
+    Store R1, tempMem
+
+    IMC<Statements>
+
+    Load R1, tempMem
+    Load_Const R2, 1
+    Sub R1, R2
+    Jump lab1
+lab2:
+
+-----------------------------------

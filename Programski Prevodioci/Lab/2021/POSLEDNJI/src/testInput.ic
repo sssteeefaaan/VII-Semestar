@@ -1,0 +1,59 @@
+	Load_Const	R2, 11.5
+	Store		R2, $tmp0
+	Load_Mem		R1, $tmp0
+	Store		R1, proba11
+	Load_Const	R2, "ovo20je20string"
+	Store		R2, $tmp1
+	Load_Mem		R1, $tmp1
+	Store		R1, proba12
+	Load_Const	R1, true
+lab0:
+	JumpIfZero		 R1, lab1
+	Store		 R1, $tmp2
+	Load_Mem		R2, proba11
+	Load_Const	R2, 2
+	Store		R2, $tmp4
+	Load_Mem		R1, $tmp4
+	Mul		R1, R2
+	Store		R1, $tmp3
+	Load_Mem		R1, $tmp3
+	Store		R1, probaDouble
+	Load_Const	R2, false
+	Store		R2, $tmp5
+	Load_Mem		R1, $tmp5
+	Store		R1, jesteLi
+	Load_Const	R2, 5
+	Store		R2, $tmp6
+	Load_Mem		R1, $tmp6
+	Store		R1, nijeLi
+	Load_Mem		R2, nijeLi
+	Load_Const	R2, 10
+	Store		R2, $tmp8
+	Load_Mem		R1, $tmp8
+	Mul		R1, R2
+	Store		R1, $tmp7
+	Load_Mem		R1, $tmp7
+	Store		R1, probaInt
+	Load		 R1, $tmp2
+	Load_Const		 R2, 1
+	Sub		 R1, R2
+	Jumb		lab0
+lab1:
+	Load_Mem		R2, proba11
+	Store		R2, $tmp9
+	Load_Mem		R1, $tmp9
+	JumpIfNotZero	R1, lab2
+	IMC<Response>
+lab2:
+	Load_Mem		R2, nijeLi
+	Store		R2, $tmp10
+	Load_Mem		R1, $tmp10
+	JumpIfNotZero	R1, lab3
+	IMC<Response>
+lab3:
+	Load_Mem		R2, nijeLi
+	Store		R2, $tmp11
+	Load_Mem		R1, $tmp11
+	JumpIfNotZero	R1, lab4
+	IMC<Response>
+lab4:

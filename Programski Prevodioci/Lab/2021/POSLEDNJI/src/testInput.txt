@@ -1,0 +1,51 @@
+strategy
+	<-comm
+	jssds
+	azduasdhs
+	comm->
+	declaration
+		string proba3;;
+		double proba11;;
+		string proba12;;
+		double probaDouble;;
+		bool jesteLi;;
+		char karakterni;;
+		int nijeLi;;
+		int probaInt;;
+		char proba1;;
+		char proba4;
+	~declaration
+	proba11 = 11.5;
+	proba12 = "ovo20je20string";
+	repeat (true)
+	{
+		<-comm
+		nisamDeklarisana = 22 * 3.2;
+		comm->
+		probaDouble = 2 * proba11;
+		jesteLi = false;
+		nijeLi = 5;
+		probaInt = 10 * nijeLi
+	}
+	service
+		serviceName proba1
+		numInstances probaInt
+		executedBy proba3
+		if 4.55 greater proba11
+			then scale 5	
+	~service;
+	service
+		serviceName proba4
+		numInstances 6
+		executedBy proba12
+		if 100 less nijeLi
+			then optimize	
+	~service;
+	service
+		serviceName proba4
+		numInstances 6
+		executedBy proba12
+		if 100 less nijeLi
+			then redeployOn proba12	
+	~service
+~strategy
