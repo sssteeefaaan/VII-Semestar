@@ -1,0 +1,11 @@
+{
+	test: {
+		proba: "hello", 
+		proba2: 2,
+		proba3: 3.14e10
+	},
+	test2: {
+		hey: 22,
+		zdravo: hey
+	}
+}

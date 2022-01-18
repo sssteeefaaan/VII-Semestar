@@ -1,0 +1,124 @@
+import java_cup.runtime.*;
+import java.io.*;
+import java.util.ArrayList;
+import SymbolTable.*;
+
+parser code{:
+    public int errorNo=0;
+    public SymbolTable symbolTable = new SymbolTable();
+
+    public static void main( String[] args )
+    {
+        try
+        {
+            FileReader file = new FileReader( args[0] );
+            Scanner scanner = new Lexer( file );
+            Parser parser = new Parser( scanner );
+            parser.parse();
+
+            if( parser.errorNo == 0)
+            System.out.println( "Kod ne sadrzi sintaksne greske!" );
+            else
+                System.out.println( "Kod nije sintaksno ispravan\n\tBroj gresaka: " + parser.errorNo);
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+    }
+
+    public int getLine(){
+        return ((Lexer)getScanner()).getLine();
+    }
+:}
+
+terminal String ID, INTCONST, STRINGCONST, REALCONST;
+terminal COMMA, POINTER, ASSIGN;
+non terminal Constant Const;
+non terminal ArrayList ArgumentList;
+non terminal Argument, Type;
+
+start with ArgumentList;
+
+
+ArgumentList ::= Argument: a
+            {:
+                RESULT = new ArrayList<Object>();
+                RESULT.add(a);
+            :}
+            | ArgumentList:al COMMA Argument:a
+            {:
+                RESULT = al;
+                RESULT.add(a);
+            :}
+            | ArgumentList:al COMMA error
+            {:
+                System.out.println( "Greska u liniji " + parser.getLine() + ": Nedostaje argument!" );
+                parser.errorNo++;
+            :}
+            | ArgumentList:al error
+            {:
+                System.out.println( "Greska u liniji " + parser.getLine() + ": Nedostaje nabrajanje!" );
+                parser.errorNo++;
+            :}
+            ;
+
+Argument ::= Type ID:id ASSIGN Const: c
+            {:
+                Variable var = parser.symbolTable.getVar( id );
+                if( var )
+                {
+                    System.out.println( "Greska u liniji " + parser.getLine() + ": Identifikator je vec definisan!" );
+                    parser.errorNo++;
+                }
+                else
+                {
+                    parser.symbolTable.addVar( id, parser.getType( c.type.tkind ) );
+                    var = parser.symbolTable.getVar( id );
+                    var.last_def = parser.getLine();
+                }
+            :}
+            | Type ID:id
+            {:
+                Variable var = parser.symbolTable.getVar( id );
+                if( var )
+                {
+                    System.out.println( "Greska u liniji " + parser.getLine() + ": Identifikator je vec definisan!" );
+                    parser.errorNo++;
+                }
+                else
+                {
+                    parser.symbolTable.addVar( id, null );
+                    var = parser.symbolTable.getVar( id );
+                    var.last_def = parser.getLine();
+                }
+            :}
+            | Type ID:id ASSIGN error
+            {:
+                System.out.println( "Greska u liniji " + parser.getLine() + ": Nedostaje konstanta!" );
+                parser.errorNo++;
+            :}
+            | Type error
+            {:
+                System.out.println( "Greska u liniji " + parser.getLine() + ": Nedostaje identifikator!" );
+                parser.errorNo++;
+            :}
+            ;
+    
+Type ::= Type POINTER
+        | ID
+        ;
+
+Const ::= STRINGCONST:s
+            {:
+                RESULT = new Constant( parser.symbolTable.getType( "string" ), s );
+            :}
+            | INTCONST: i
+            {:
+                RESULT = new Constant( parser.symbolTable.getType( "int" ), i );
+            :}
+            | REALCONST: r
+            {:
+                RESULT = new Constant( parser.symbolTable.getType( "real" ), r );
+            :}
+            ;

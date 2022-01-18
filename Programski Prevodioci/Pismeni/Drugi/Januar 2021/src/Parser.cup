@@ -1,0 +1,146 @@
+import java_cup.runtime.*;
+import java.io.*;
+import java.util.ArrayList;
+import SymbolTable.*;
+
+
+parser code{:
+    public int errorNo = 0;
+    public int warrningNo = 0;
+    public SymbolTable symbolTable;
+
+    public static void main( String[] args )
+    {
+        try{
+            FileReader file = new FileReader( args[0] );
+            Scanner scanner = new Lexer( file );
+            Parser parser = new Parser( scanner );
+            parser.parse();
+            if ( parser.errorNo == 0 && parser.errorNo == 0 )
+		      System.out.println( "Analiza zavrsena. U kodu nema gresaka." );
+		   else
+		      System.out.println( "Analiza zavrsena. Broj gresaka: " + parser.errorNo 
+		         + " Broj upozorenja: " + parser.warrningNo );
+        }
+        catch( Exception e )
+        {
+            e.printStackTrace();
+        }
+    }
+
+    public int getLine()
+    {
+        return (( Lexer ) getScanner()).getLine();
+    }
+:}
+
+
+init with {:
+    this.symbolTable = new SymbolTable();
+:}
+
+
+
+terminal String INTCONST, STRINGCONST, COMMA, COLON, OPENPAR, CLOSEPAR, ID;
+
+nonterminal SliceOperation, Indices, Range;
+nonterminal ArrayList List;
+nonterminal Constant CONST;
+
+precedence nonassoc error;
+
+start with SliceOperation;
+
+
+SliceOperation ::= ID OPENPAR Indices CLOSEPAR
+        |
+        ID OPENPAR Indices error
+        {:
+            System.out.println("Greska u liniji " + parser.getLine() + ": Nedostaje zatvorena uglasta zagrada!");
+			parser.errorNo++;
+        :}
+        |
+        ID error
+        {:
+            System.out.println("Greska u liniji " + parser.getLine() + ": Nevalidna inicijalizacija splice operacije!");
+			parser.errorNo++;
+        :}
+        ;
+
+Indices ::= List
+        | Range
+        |
+        ;
+
+List ::= List:l COMMA CONST:c
+        {:
+            boolean flag = false;
+            for(int i = 0; i < l.size(); i++){
+                if(flag = ((Constant)l.get(i)).value.equals(c.value)){
+                    System.out.println("Greska u liniji " + parser.getLine() + ": Indeksi u listi ne smeju imati iste vrednosti!");
+                    parser.errorNo++;
+                    break;
+                }
+                if(((Constant)l.get(i)).type.tkind != c.type.tkind){
+                    System.out.println("Greska u liniji " + parser.getLine() + ": Indeksi u listi moraju biti istog tipa!");
+                    parser.errorNo++;
+                    break;
+                }
+            }
+            if(!flag){
+                l.add(c);
+                RESULT = l;
+            }
+        :}
+        | List:l COMMA error
+        {:
+            System.out.println("Greska u liniji " + parser.getLine() + ": Nedostaje indeks nakon zareza!");
+            parser.errorNo++;
+        :}
+        | CONST:c
+        {:
+            RESULT = new ArrayList<Constant>();
+            RESULT.add(c);
+        :}
+        ;
+
+Range ::= COLON CONST:c1 COLON CONST:c2 
+        {:
+            int kind = parser.symbolTable.getType("int").tkind;
+            if(c1.type.tkind != kind || c2.type.tkind != kind){
+                System.out.println("Greska u liniji " + parser.getLine() + ": Opseg vrednosti u listi mora biti celi broj!");
+                    parser.errorNo++;
+            }
+            else if(Integer.parseInt((String)c1.value) > Integer.parseInt((String)c2.value)){
+                System.out.println("Greska u liniji " + parser.getLine() + ": Prvi indeks nije prethodnik drugog indeksa!");
+                parser.errorNo++;
+            }
+        :}
+        | COLON CONST:c COLON
+        {:
+            if(c.type.tkind != parser.symbolTable.getType("int").tkind){
+                System.out.println("Greska u liniji " + parser.getLine() + ": Opseg vrednosti u listi mora biti celi broj!");
+                    parser.errorNo++;
+            }
+        :}
+        | COLON CONST:c error
+        {:
+            System.out.println("Greska u liniji " + parser.getLine() + ": Nedostaje : u definiciji opsega!");
+            parser.errorNo++;
+        :}
+        | COLON error
+        {:
+            System.out.println("Greska u liniji " + parser.getLine() + ": Nedotaje opseg!");
+            parser.errorNo++;
+        :}
+        ;
+
+CONST ::= STRINGCONST:c
+        {:
+            RESULT = new Constant( parser.symbolTable.getType("string"), c);
+        :}
+        | INTCONST: c
+        {:
+            RESULT = new Constant( parser.symbolTable.getType("int"), c);
+        :}
+        ;

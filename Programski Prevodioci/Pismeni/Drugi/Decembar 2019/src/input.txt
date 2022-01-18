@@ -1,0 +1,1 @@
+int prva, string druga = "NJEGOS", real proba1 = 3.14f, real* proba2 = -0.54e-12L

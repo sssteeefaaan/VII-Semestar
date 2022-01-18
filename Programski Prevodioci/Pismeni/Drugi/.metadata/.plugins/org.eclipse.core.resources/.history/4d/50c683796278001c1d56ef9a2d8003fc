@@ -1,0 +1,129 @@
+import java_cup.runtime.*;
+import java.io.*;
+import java.util.HashMap;
+import SymbolTable.*;
+
+
+parser code {:
+    public int errorNumber = 0;
+    public int warrningNumber = 0;
+    public SymbolTable symbolTable = new SymbolTable();
+
+    public static void main( String[] args )
+    {
+        try
+        {
+            FileReader file = new FileReader( args[0] );
+            Scanner scanner = new Scanner( file );
+            Parser parser = new Parser( scanner );
+            parser.parse();
+
+            if( parser.errorNumber == 0 && parser.warrningNumber == 0 )
+                System.out.println( "U kodu nije pronadjeno gresaka!" );
+            else
+                System.out.println( "Kod nije u potpunosti ispravan\n\tBroj gresaka: " + parser.errorNumber + ",\n\t Broj upozorenja: " + parser.warrningNumber);
+        }
+        catch( Exception e )
+        {
+            e.printStackTrace();
+        }
+    }
+
+    public int getLine()
+    {
+        return (( Lexer ) getScanner()).getLine();
+    }
+:}
+
+//init with {:
+//      this.symbolTable = new SymbolTable();
+//:}
+
+terminal STRINGCONST, INTCONST, REALCONST, COMMA, COLON, OPENCURLY, CLOSECURLY;
+terminal String ID;
+non terminal Constant Const;
+non terminal Object;
+non terminal HashMap Members;
+non terminal Pair Pair;
+
+start with Object;
+
+Object ::= OPENCURLY Members CLOSECURLY
+        |
+        OPENCURLY Members error
+        {:
+            System.out.println( "Greska u liniji " + parser.getLine() + ": Nedostaje zatvorena viticasta zagrada!" );
+			parser.errorNumber++;
+        :}
+        | OPENCURLY error
+        {:
+			System.out.println( "Greska u liniji " + parser.getLine() + ": Nedostaju clanovi!" );
+			parser.errorNumber++;
+		:}
+        ;
+
+Members ::= Pair:p
+        {:
+            RESULT = new HashMap<String, Pair>();
+            RESULT.put(p.key, p);
+        :}
+        | Members:m COMMA Pair:p
+        {:
+            if( m.containsKey( p.key ) )
+            {
+                System.out.println( "Greska u liniji " + parser.getLine() + ": Ne mozete imati clanove sa istim identifikatorom!" );
+                parser.errorNumber++;
+            }
+            else if( p.type == PairType.ID && !m.containsKey( (String) p.value ) ){
+                System.out.println( "Greska u liniji " + parser.getLine() + ": Identifikator upotrebljen kao vrednost nije definisan!" );
+                parser.errorNumber++;
+            }
+            else{
+                m.put( p.key, p );
+                RESULT = m;
+            }
+        :}
+        | Members COMMA error
+        {:
+            System.out.println( "Greska u liniji " + parser.getLine() + ": Nedostaje clan nakon zapete!" );
+            parser.errorNumber++;
+        :}
+        ;
+
+Pair ::= ID:id COLON Const:c
+    {:
+        RESULT = new Pair(id, PairType.CONST, c);
+    :}
+    | ID:id COLON Object:o
+    {:
+        RESULT = new Pair(id, PairType.OBJECT, o);
+    :}
+    | ID:id1 COLON ID:id2
+    {:
+        RESULT = new Pair(id1, PairType.ID, id2);
+    :}
+    | ID COLON error
+    {:
+        System.out.println( "Greska u liniji " + parser.getLine() + ": Nedostaje vrednost nakon :!" );
+        parser.errorNumber++;
+    :}
+    | ID error
+    {:
+        System.out.println( "Greska u liniji " + parser.getLine() + ": Nedostaje definicija clana!" );
+        parser.errorNumber++;
+    :}
+    ;
+
+Const ::= STRINGCONST:s
+    {:
+        RESULT = new Constant( parser.symbolTable.getType( "string" ), s);
+    :}
+    | INTCONST:i
+    {:
+        RESULT = new Constant( parser.symbolTable.getType( "int" ), i);
+    :}
+    | REALCONST:r
+    {:
+        RESULT = new Constant( parser.symbolTable.getType( "real" ), r);
+    :}
+    ;

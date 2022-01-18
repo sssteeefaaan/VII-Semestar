@@ -17,14 +17,15 @@ strategy
 	~declaration
 	proba11 = 11.5;
 	proba12 = "ovo20je20string";
-	repeat (true)
+	nijeLi = 5;
+	jesteLi = true;
+	repeat (nijeLi)
 	{
 		<-comm
 		nisamDeklarisana = 22 * 3.2;
 		comm->
 		probaDouble = 2 * proba11;
-		jesteLi = false;
-		nijeLi = 5;
+		probaDouble = 2 * probaDouble;
 		probaInt = 10 * nijeLi
 	}
 	service
@@ -32,7 +33,7 @@ strategy
 		numInstances probaInt
 		executedBy proba3
 		if 4.55 greater proba11
-			then scale 5	
+			then scale 5
 	~service;
 	service
 		serviceName proba4
@@ -46,6 +47,6 @@ strategy
 		numInstances 6
 		executedBy proba12
 		if 100 less nijeLi
-			then redeployOn proba12	
+			then redeployOn proba12
 	~service
 ~strategy
