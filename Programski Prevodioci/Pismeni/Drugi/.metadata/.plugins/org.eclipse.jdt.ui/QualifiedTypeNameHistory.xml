@@ -1,2 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<qualifiedTypeNameHistroy/>
+<qualifiedTypeNameHistroy>
+    <fullyQualifiedTypeName name="SymbolTable.Constant"/>
+    <fullyQualifiedTypeName name="java_cup.runtime.Scanner"/>
+</qualifiedTypeNameHistroy>

@@ -20,4 +20,7 @@
 	</section>
 	<section name="quick_assist_proposal_size">
 	</section>
+	<section name="WorkingSetModelAwareSelectionDialog">
+		<item key="ShowVisibleOnly" value="true"/>
+	</section>
 </section>

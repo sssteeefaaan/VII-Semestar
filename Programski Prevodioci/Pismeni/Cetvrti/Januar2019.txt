@@ -1,0 +1,49 @@
+----------------------------
+Aktivacioni slog activate
+
+RESULT		< --- BP+8
+coord_point	< --- BP+6
+event_code	< --- BP+4
+IP			< --- BP+2
+BP			< --- BP
+
+----------------------------
+Kod za activate
+
+	PUSH BP
+	MOV BP, SP
+	
+	MOV BX, [BP+6]
+	CMP BX, 0
+	JNE dalje1
+	
+	MOV [ADDR_ACTIVATED], 0
+	JMP kraj
+	
+dalje1:
+	MOV AX, [BP+4]
+	CMP AX, [BX]
+	JNE dalje2
+	
+	MOV AX, [BX+2]
+	MOV [ADDR_ACTIVATED], AX
+	JMP kraj
+	
+dalje2:
+	SUB SP, 2
+	MOV AX, [BX+4]
+	PUSH AX
+	MOV AX, [BP+4]
+	PUSH AX
+	CALL activate
+	ADD SP, 6
+	;MOV AX, [SP-2]
+	;MOV [ADDR_ACTIVATED], AX
+
+kraj:
+	MOV AX, [ADDR_ACTIVATED]
+	MOV [BP+8], AX
+	
+	MOV SP, BP
+	POP BP
+	RET

@@ -1,2 +1,6 @@
 INDEX VERSION 1.131+C:\Users\Stefan\Desktop\VII-Semestar\Programski Prevodioci\Pismeni\Drugi\.metadata\.plugins\org.eclipse.jdt.core
-1613965746.index
+42701836.index
+2640421877.index
+1350205291.index
+826635450.index
+1865797976.index

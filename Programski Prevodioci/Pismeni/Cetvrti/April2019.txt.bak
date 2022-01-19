@@ -1,0 +1,13 @@
+------------------------------
+Aktivacioni slog eval
+
+root		< --- BP+4
+IP			< --- BP+2
+BP			< --- BP
+
+------------------------------
+Asembler kod eval
+	PUSH BP
+	MOV BP, SP
+	
+	MOV BX, [BP+4]

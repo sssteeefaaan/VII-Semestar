@@ -1,0 +1,5 @@
+enum test: INT {
+	Proba: 123,
+	Test: 22,
+	HopeForTheBest: "123"
+}

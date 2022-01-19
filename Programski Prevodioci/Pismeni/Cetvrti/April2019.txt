@@ -1,0 +1,66 @@
+------------------------------
+Aktivacioni slog eval
+
+root		< --- BP+4
+IP			< --- BP+2
+BP			< --- BP
+l_val		< --- BP-2
+r_val		< --- BP-4
+
+------------------------------
+Asembler kod eval
+	PUSH BP
+	MOV BP, SP
+	
+	MOV BX, [BP+4]
+	XOR CX, CX
+	
+	CMP BX, 0
+	JE kraj
+	
+	CMP [BX], 0
+	JE dalje1
+	CMP [BX+2], 0
+	JE dalje1
+	JMP dalje2
+	
+dalje1:
+	MOV CX, [BX+4]
+	JMP kraj
+	
+dalje2:
+	PUSH BX
+	MOV AX, [BX]
+	PUSH AX
+	CALL eval
+	ADD SP, 2
+	POP BX
+	MOV [BP-2], CX
+	
+	PUSH BX
+	MOV AX, [BX+2]
+	PUSH AX
+	CALL eval
+	ADD SP, 2
+	POP BX
+	MOV [BP-4], CX
+	
+	MOV AX, 999
+	CMP [BX+4], AX
+	JNE dalje3
+	MOV CX, [BP-2]
+	ADD CX, [BP-4]
+	JMP kraj
+	
+dalje3:
+	SUB AX, 1
+	CMP [BX+4], AX
+	JNE kraj
+	MOV CX, [BP-2]
+	SUB CX, [BP-4]
+	
+kraj:
+	MOV SP, BP
+	POP BP
+	RET
+	

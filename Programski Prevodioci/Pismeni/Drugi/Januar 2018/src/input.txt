@@ -1,0 +1,5 @@
+enum test: STRING {
+	Proba: "ASDS",
+	Test: "ASDsssS",
+	Testa: "44"
+}

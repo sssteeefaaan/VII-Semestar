@@ -1,0 +1,60 @@
+-------------------------------
+Aktivacioni slog covid_safety
+
+RESULT			< --- BP+8
+max_persons		< --- BP+6
+l				< --- BP+4
+IP				< --- BP+2
+BP				< --- BP
+count			< --- BP-2
+
+-------------------------------
+Kod za covid_safety
+	PUSH BP
+	MOV BP, SP
+	SUB SP, 2
+	
+	MOV [BP-2], 0
+	
+	MOV BX, [BP+4]
+	CMP [BX], 0
+	JE obrada
+	CMP [BX+2], 1
+	JE obrada
+	MOV AX, [BP+6]
+	CMP [BX+6], AX
+	JG obrada
+	JUMP dalje
+
+obrada:
+	MOV AX, [BX+4]
+	PUSH BX
+	PUSH AX
+	CALL call_guard
+	ADD SP, 2
+	POP BX
+	ADD [BP-2], CX
+	
+dalje:
+	CMP [BX+8], 0
+	JE dalje2
+	
+	SUB SP, 2
+	MOV AX, [BP+6]
+	PUSH AX
+	MOV AX, [BX+8]
+	PUSH AX
+	CALL covid_safety
+	ADD SP, 4
+	POP AX
+	ADD AX, [BP-2]
+	JUMP kraj
+	
+dalje2:
+	MOV AX, [BP-2]
+kraj:
+	MOV [BP+8], AX
+	MOV SP, BP
+	POP BP
+	RET
+	

@@ -1,0 +1,56 @@
+----------------------
+Aktivacioni slog isPalindrome
+
+RESULT	< --- BP+8
+len		< --- BP+6
+s		< --- BP+4
+IP		< --- BP+2
+BP		< --- BP
+
+
+----------------------
+Kod za isPalindrome
+
+	PUSH BP
+	MOV BP, SP
+	
+	MOV AX, [BP+6]
+	CMP AX, 2
+	JNE dalje
+	MOV [BP+8], 1
+	JMP kraj
+	
+dalje:
+	MOV BX, [BP+4]
+	MOV DX, [BX]
+	ADD BX, AX
+	DEC BX
+	CMP [BX], DX
+	JE dalje2
+	
+	MOV [BP+8], 0
+	JMP kraj
+	
+dalje2:
+	SUB SP, 2
+	SUB AX, 2
+	PUSH AX
+	MOV AX, [BP+4]
+	INC AX
+	PUSH AX
+	CALL isPalindrome
+	ADD SP, 6
+	MOV AX, [SP-2]
+	CMP AX, 1
+	JE dalje3
+	
+	MOV [BP+8], 0
+	JMP kraj
+	
+dalje3:
+	MOV [BP+8], 1
+	
+kraj:
+	MOV SP, BP
+	POP BP
+	RET
