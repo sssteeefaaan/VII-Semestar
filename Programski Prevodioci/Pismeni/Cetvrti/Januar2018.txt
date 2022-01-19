@@ -17,7 +17,8 @@ Kod za isPalindrome
 	MOV AX, [BP+6]
 	CMP AX, 2
 	JGE dalje
-	MOV [BP+8], 1
+	MOV AX, 1
+	MOV [BP+8], AX
 	JMP kraj
 	
 dalje:
@@ -29,7 +30,8 @@ dalje:
 	CMP DH, DL
 	JE dalje2
 	
-	MOV [BP+8], 0
+	XOR AX, AX
+	MOV [BP+8], AX
 	JMP kraj
 	
 dalje2:
@@ -45,11 +47,13 @@ dalje2:
 	CMP AX, 1
 	JE dalje3
 	
-	MOV [BP+8], 0
+	XOR AX, AX
+	MOV [BP+8], AX
 	JMP kraj
 	
 dalje3:
-	MOV [BP+8], 1
+	MOV AX, 1
+	MOV [BP+8], AX
 	
 kraj:
 	MOV SP, BP

@@ -18,9 +18,10 @@ Asembler kod eval
 	CMP BX, 0
 	JE kraj
 	
-	CMP [BX], 0
+	XOR AX, AX
+	CMP [BX], AX
 	JE dalje1
-	CMP [BX+2], 0
+	CMP [BX+2], AX
 	JE dalje1
 	JMP dalje2
 	

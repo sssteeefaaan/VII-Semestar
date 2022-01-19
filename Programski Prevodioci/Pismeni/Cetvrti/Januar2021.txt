@@ -16,10 +16,12 @@ Kod za covid_safety
 	
 	MOV [BP-2], 0
 	
+	XOR AX, AX
 	MOV BX, [BP+4]
-	CMP [BX], 0
+	CMP [BX], AX
 	JE obrada
-	CMP [BX+2], 1
+	MOV AX, 1
+	CMP [BX+2], AX
 	JE obrada
 	MOV AX, [BP+6]
 	CMP [BX+6], AX
@@ -36,7 +38,8 @@ obrada:
 	ADD [BP-2], CX
 	
 dalje:
-	CMP [BX+8], 0
+	XOR AX, AX
+	CMP [BX+8], AX
 	JE dalje2
 	
 	SUB SP, 2

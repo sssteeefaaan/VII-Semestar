@@ -17,7 +17,8 @@ Kod za activate
 	CMP BX, 0
 	JNE dalje1
 	
-	MOV [ADDR_ACTIVATED], 0
+	XOR AX, AX
+	MOV [ADDR_ACTIVATED], AX
 	JMP kraj
 	
 dalje1:
