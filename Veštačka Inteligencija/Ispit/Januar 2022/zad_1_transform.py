@@ -1,0 +1,2 @@
+def transform(matrix):
+    return { (i, j): [ (p, q) for (p, q) in [(i, j + 1), (i, j - 1), (i + 1, j), (i - 1, j)] if -1 < p < len(matrix) and -1 < q < len(matrix[p]) and matrix[p][q] ] for i in range(len(matrix)) for j in range(len(matrix[i])) if matrix[i][j] }
