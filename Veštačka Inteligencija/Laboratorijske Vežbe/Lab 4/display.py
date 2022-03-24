@@ -29,3 +29,17 @@ def display(graph, data):
                       font_size=16,
                       node_color=col)
     show()
+    
+def display2(graph, mapped):
+    col = [0] * len(mapped)
+    for key in mapped.keys():
+        col[ord(key) - ord('A')] = colors[mapped[key]]
+    G = Graph()
+    G.add_nodes_from(graph.keys())
+    G.add_edges_from([(x, y) for x in graph.keys() for y in graph[x]])
+    draw_kamada_kawai(G,
+                      with_labels=True,
+                      node_size=2000,
+                      font_size=16,
+                      node_color=col)
+    show()
